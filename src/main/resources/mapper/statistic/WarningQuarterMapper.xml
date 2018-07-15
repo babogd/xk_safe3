@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.micromap.business.oneplatform.statistic.mapper.WarningQuarterMapper">
+    <select id="statistic" resultType="java.util.Map">
+        SELECT * FROM(SELECT 1 AS sort,  B.WARING_TIME_YER AS year ,B.WARING_TIME_YER || '年第一季度' AS quarter ,B.amount,100* ROUND((B.amount)/(sum(A.WARING_NUM)),3) || '%' AS proportion FROM C_MW_WARING_MON A LEFT JOIN (SELECT
+        WARING_TIME_YER,
+        SUM (WARING_NUM) amount
+        FROM
+        C_MW_WARING_MON
+        WHERE
+        WARING_TIME_MON BETWEEN 1 AND 3
+        AND DELETE_STATE = 0
+        AND WARING_TIME_YER =#{year}
+        GROUP BY WARING_TIME_YER) B ON  A.WARING_TIME_YER=B.WARING_TIME_YER
+        WHERE B.AMOUNT IS NOT NULL
+        GROUP BY B.amount,B.WARING_TIME_YER
+        UNION
+       SELECT 2 AS sort, B.WARING_TIME_YER AS year , B.WARING_TIME_YER || '年第二季度' AS quarter ,B.amount,100* ROUND((B.amount)/(sum(A.WARING_NUM)),3) || '%' AS proportion FROM C_MW_WARING_MON A LEFT JOIN (SELECT
+        WARING_TIME_YER,
+        SUM (WARING_NUM) amount
+        FROM
+        C_MW_WARING_MON
+        WHERE
+        WARING_TIME_MON BETWEEN 4 AND 6
+        AND DELETE_STATE = 0
+        AND WARING_TIME_YER =#{year}
+        GROUP BY WARING_TIME_YER) B ON  A.WARING_TIME_YER=B.WARING_TIME_YER
+        WHERE B.AMOUNT IS NOT NULL
+        GROUP BY B.amount,B.WARING_TIME_YER
+        UNION
+        SELECT 3 AS sort, B.WARING_TIME_YER AS year , B.WARING_TIME_YER || '年第三季度' AS quarter ,B.amount,100* ROUND((B.amount)/(sum(A.WARING_NUM)),3) || '%' AS proportion FROM C_MW_WARING_MON A LEFT JOIN (SELECT
+        WARING_TIME_YER,
+        SUM (WARING_NUM) amount
+        FROM
+        C_MW_WARING_MON
+        WHERE
+        WARING_TIME_MON BETWEEN 7 AND 9
+        AND DELETE_STATE = 0
+        AND WARING_TIME_YER =#{year}
+        GROUP BY WARING_TIME_YER) B ON  A.WARING_TIME_YER=B.WARING_TIME_YER
+        WHERE B.AMOUNT IS NOT NULL
+        GROUP BY B.amount,B.WARING_TIME_YER
+        UNION
+       SELECT 4 AS sort, B.WARING_TIME_YER AS year , B.WARING_TIME_YER || '年第四季度' AS quarter ,B.amount,100* ROUND((B.amount)/(sum(A.WARING_NUM)),3) || '%' AS proportion FROM C_MW_WARING_MON A LEFT JOIN (SELECT
+        WARING_TIME_YER,
+        SUM (WARING_NUM) amount
+        FROM
+        C_MW_WARING_MON
+        WHERE
+        WARING_TIME_MON BETWEEN 10 AND 12
+        AND DELETE_STATE = 0
+        AND WARING_TIME_YER =#{year}
+        GROUP BY WARING_TIME_YER) B ON  A.WARING_TIME_YER=B.WARING_TIME_YER
+        WHERE B.AMOUNT IS NOT NULL
+        GROUP BY B.amount,B.WARING_TIME_YER) ORDER BY  sort ASC
+    </select>
+ <select id="detailStatistic" resultType="java.util.Map">
+        SELECT
+            ENTERPRISE_ID,
+            ENTERPRISE_NAME,
+            SUM (WARING_NUM) amount
+        FROM
+            C_MW_WARING_MON
+        WHERE
+            WARING_TIME_MON BETWEEN #{startMonth} AND #{endMonth}
+        AND DELETE_STATE = 0
+        AND WARING_TIME_YER = #{year}
+        GROUP BY
+            ENTERPRISE_ID,
+            ENTERPRISE_NAME
+        ORDER BY amount DESC
+    </select>
+</mapper>

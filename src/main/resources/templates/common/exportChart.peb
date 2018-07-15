@@ -1,0 +1,56 @@
+{% extends '../../common/layout' %}
+{% block title %}
+导出
+{% endblock %}
+{% block head %}
+<style>
+    #form1{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    .form-button{
+        width: 160px;
+    }
+    .form-button a{
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<form id="form1" name="form1" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" style="display: none" name="{{ request.getAttribute('_csrf').parameterName }}"
+           value="{{ request.getAttribute('_csrf').token }}"/>
+    <div class="form-button">
+        <input title="" class="easyui-checkbox" name="type" label="统计图" value="1" checked>
+        <input title="" class="easyui-checkbox" name="type" label="统计表" value="0" checked>
+        <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_export">导出</a>
+    </div>
+</form>
+{% endblock %}
+{% block footer %}
+<script>
+    function setData(data) {
+        var $form = $('#form1').attr('action', data.url);
+        var _data = data.form;
+        for (var key in _data) {
+            if (_data.hasOwnProperty(key)) {
+                var $input = $('<input type="hidden"/>').hide();
+                $input.attr('name', key).val(_data[key]);
+                $form.append($input);
+            }
+        }
+    }
+
+    $('#btn_export').on('click', function() {
+        $('#form1').trigger('submit');
+    });
+    $(document).on('setData', function(event, data) {
+        setData(data);
+    });
+</script>
+{% endblock %}
+
+

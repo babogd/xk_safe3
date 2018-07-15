@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.micromap.business.oneplatform.statistic.mapper.ChemartDataStatisticsMapper">
+    <select id="statistic" resultType="java.util.Map">
+        SELECT
+            A .CHEMART_ART,
+            B.TEXT chemartname,
+            COUNT (DISTINCT A .ENTERPRISE_ID) amount,
+            100 * ROUND (
+                (COUNT(A .CHEMART_ART)) / (
+                    SELECT
+                        COUNT (CHEMART_ART)
+                    FROM
+                        C_EI_CHEMART
+                    WHERE
+                        DELETE_STATE = 0
+                ),
+                3
+            ) || '%' proportion
+        FROM
+            C_EI_CHEMART A
+        LEFT JOIN (SELECT ID, TEXT FROM S_DICT) B ON A .CHEMART_ART = B. ID
+        WHERE
+            A .DELETE_STATE = 0
+        GROUP BY
+            B.TEXT,
+            A .CHEMART_ART
+        ORDER BY
+            amount DESC
+    </select>
+
+    <select id="detailStatistic" resultType="java.util.Map">
+        SELECT
+            A .ENTERPRISE_ID enterpriseId,
+            C.ENTERPRISE_NAME enterprisename,
+            A .CHEMART_ART,
+            B.TEXT chemartname,
+            COUNT (A .CHEMART_ART) amount
+        FROM
+            C_EI_CHEMART A
+        LEFT JOIN (SELECT ID, TEXT FROM S_DICT) B ON A .CHEMART_ART = B. ID
+        LEFT JOIN T_BAS_ENTERPRISE_DATA C ON A .ENTERPRISE_ID = C. ID
+        WHERE
+            A .DELETE_STATE = 0
+        AND B.TEXT LIKE  #{category}
+        GROUP BY
+            B.TEXT,
+            A .CHEMART_ART,
+            C.ENTERPRISE_NAME,
+            A .ENTERPRISE_ID
+        ORDER BY
+            amount DESC
+
+    </select>
+</mapper>

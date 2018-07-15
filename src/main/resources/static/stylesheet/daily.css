@@ -1,0 +1,32 @@
+
+/*弹出Dialog自带按钮样式*/
+.dialog-button{
+    text-align:center
+}
+.dialog-button .l-btn{
+    color:white;
+    background-color: #43a2f8;
+}
+.window-header{
+    font-size:16px;
+    font-family: "新宋体";
+    margin-bottom:8px
+}
+/*自定Dialog自带按钮样式结束*/
+
+.textbox-label-before{
+    font-size:10pt
+}
+
+.onerow{
+    overflow: hidden;
+    word-break: break-all;
+    white-space: nowrap;
+    scroll:none
+}
+
+.ellipsis{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}

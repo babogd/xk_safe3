@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.micromap.business.oneplatform.monitoring.mapper.SensodataRealMapper">
+
+    <select id="selectDangsrc" resultType="java.util.Map">
+        SELECT
+        DANGSRC_ID,
+        ENTERPRISE_NAME,
+        DANGSRC_NAME
+        FROM
+        C_MW_SENSODATA_REAL
+        WHERE
+        DELETE_STATE = 0
+        <if test="enterpriseName!= null and enterpriseName !='' ">
+            <bind name="key" value="'%' + enterpriseName + '%'"/>
+            AND ENTERPRISE_NAME LIKE #{key}
+        </if>
+        <if test="dangsrcName!= null and dangsrcName !='' ">
+            <bind name="key" value="'%' + dangsrcName + '%'"/>
+            AND DANGSRC_NAME LIKE #{key}
+        </if>
+        GROUP BY DANGSRC_ID,ENTERPRISE_NAME,DANGSRC_NAME
+    </select>
+
+    <select id="selectAll" resultType="java.util.Map">
+        SELECT
+        ID,
+        COLLECT_TIME,
+        COLLECT_VALUE,
+        ENTERPRISE_ID,
+        ENTERPRISE_NAME,
+        INDUSTRY_TYPE,
+        DANGSRC_ID,
+        DANGSRC_NAME,
+        EQUIP_NAME,
+        TOP_VALUE_01,
+        TOP_VALUE_02
+        FROM
+        C_MW_SENSODATA_REAL
+        WHERE
+        DELETE_STATE = 0
+        <if test="dangsrcId!= null and dangsrcId !='' ">
+            AND DANGSRC_ID = #{dangsrcId}
+        </if>
+        <if test="equipName!= null and equipName !='' ">
+            <bind name="key" value="'%' + equipName + '%'"/>
+            AND EQUIP_NAME LIKE #{key}
+        </if>
+        <if test=" startTime != null and startTime !='' ">
+            <![CDATA[
+                      AND (TO_DATE(COLLECT_TIME, 'yyyy-MM-dd HH24:mi:ss') >=TO_DATE(#{startTime}, 'yyyy-MM-dd HH24:mi:ss') )
+				]]>
+        </if>
+        <if test=" endTime != null and endTime !='' ">
+            <![CDATA[
+                      AND (TO_DATE(COLLECT_TIME, 'yyyy-MM-dd HH24:mi:ss') <=TO_DATE(#{endTime}, 'yyyy-MM-dd HH24:mi:ss') )
+				]]>
+        </if>
+    </select>
+</mapper>

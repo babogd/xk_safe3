@@ -1,0 +1,176 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+重大危险源信息详情
+{% endblock %}
+
+{% block content %}
+<form id="form_submit" class="form-submit container-fluid">
+    <input type="hidden" name="enterpriseId[id]" id="enterpriseId">
+    <div class="row" id="dwmc">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox"
+                   name="enterpriseId[enterpriseName]"
+                   label="单位名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="dangsrcName"
+                   name="dangsrcName" required="required"
+                   label="重大危险源名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6 required">
+            <select title="" style="width: 100%" type="text" class="easyui-combobox" id="dangsrcLevel"
+                    name="dangsrcLevel" reversed="true"
+                    label="重大危险源级别:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+                <option value=""></option>
+                <option value="1">一级</option>
+                <option value="2">二级</option>
+                <option value="3">三级</option>
+                <option value="4">四级</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-numberbox" min="0" id="presVesselNum"
+                   name="presVesselNum"
+                   label="压力容器总数:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-combobox" id="activeType"
+                   name="activeType[id]"
+                   label="生产经营活动类型:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-numberbox" min="0" id="presVessel3thNum"
+                   name="presVessel3thNum"
+                   label="三类压力容器总数:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-combobox" id="storageFacilityProperty"
+                   name="storageFacilityProperty[id]"
+                   label="生产存储场所产权:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="address" name="address"
+                   label="详细地址:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="material" name="material"
+                   label="主要产品:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div style="font-size:13px">&emsp;防雷防静电设施检测时间</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="lightdevLastChkDate"
+                   name="lightdevLastChkDate"
+                   label="最近一次检测时间:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="lightdevValidate"
+                   name="lightdevValidate"
+                   label="到期时间:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="startArchiveDate"
+                   name="startArchiveDate"
+                   label="危险源备案期限（起）:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="endArchiveDate"
+                   name="endArchiveDate"
+                   label="危险源备案期限（止）:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-combobox" id="accidentType"
+                   name="accidentType[id]"
+                   label="易引发事故类型:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6 required">
+            <select title="" style="width: 100%" type="text" class="easyui-combobox" id="probDeathpsn"
+                    name="probDeathpsn" reversed="true"
+                    label="可能引发事故死亡人数:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+                <option value=""></option>
+                <option value="1">0-9人</option>
+                <option value="2">10-29人</option>
+                <option value="3">30-99人</option>
+                <option value="4">100人以上</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="safeDutyerName"
+                   name="safeDutyerName"
+                   label="安全负责人:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="linkMode" name="linkMode"
+                   label="联系方式:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-numberbox" id="longitude" name="longitude"
+                   label="经度:" labelPosition="before" labelAlign="right" labelWidth="200" precision="6"
+                   data-options="icons: [{iconCls:'icon-location', handler:getCoords}]">
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-numberbox" id="latitude" name="latitude"
+                   label="纬度:" labelPosition="before" labelAlign="right" labelWidth="200" precision="6">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="remark" name="remark"
+                   label="备注:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="easyui-formbox" label="附件:" labelAlign="right" labelWidth="200">
+                <div class="accessory-container" id="accessory"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="form-button">
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_save">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_close">关闭</a>
+</div>
+<div id="dialog"></div>
+{% include '../../common/accessory' %}
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/enterprise/enterprise-dangsrc/detail.js"></script>
+<script type="text/javascript">
+    var location_map_view = '/view/gis/map/location-map';
+
+    function getCoords() {
+        G.open({
+            url: location_map_view,
+            width: 800,
+            height: 600,
+            title: '地图选点'
+        });
+    }
+</script>
+{% endblock %}

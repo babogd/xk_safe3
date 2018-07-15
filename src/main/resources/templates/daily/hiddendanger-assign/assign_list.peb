@@ -1,0 +1,40 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+受理交办
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ request.contextPath }}/stylesheet/daily.css">
+
+{% endblock %}
+{% block content %}
+
+<div id="assignTabs" class="easyui-tabs" style="width:100%;height:100%;" narrow="true" pill="true">
+   {#<div title="未受理" data-options="href:'/hd/view/assign_notyet',closed:false,cache:true">
+   </div>
+   <div title="已受理" data-options="href:'/hd/view/assign_yet',closed:false">
+   </div>#}
+</div>
+
+
+{% endblock %}
+
+{% block footer %}
+
+<script>
+  $(function(){
+
+    addTab("assignTabs", "未受理", "{{ request.contextPath }}/hd/view/assign_notyet", false,true);
+    addTab("assignTabs", "已受理", "{{ request.contextPath }}/hd/view/assign_yet", false);
+
+    $("#assignTabs").tabs("select",0);
+    //$('#ajax-tab-container').easytabs();
+
+  });
+</script>
+<script src="{{ request.contextPath }}/javascript/daily/hiddendanger-baseinfo/baseinfo.js"></script>
+<script src="{{ request.contextPath }}/javascript/daily/hiddendanger-common/ajaxutil.js"></script>
+<script src="{{ request.contextPath }}/javascript/daily/hiddendanger-common/common.js"></script>
+
+{% endblock %}

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.micromap.business.oneplatform.gis.mapper.PointInfoMapper">
+
+<!--    {LAYER_ID: "1", LAYER_NAME: "企业"},
+    {LAYER_ID: "2", LAYER_NAME: "储罐"},
+    {LAYER_ID: "3", LAYER_NAME: "重大危险源"},
+    {LAYER_ID: "4", LAYER_NAME: "生产装置"},
+    {LAYER_ID: "5", LAYER_NAME: "视频监控"},
+    {LAYER_ID: "6", LAYER_NAME: "高空瞭望"}-->
+
+    <sql id="chekExtentSql">
+        <if test=" minLongitude != null and minLongitude !=''and maxLongitude != null and maxLongitude !=''">
+            AND T.LONGITUDE BETWEEN #{minLongitude} AND #{maxLongitude}
+        </if>
+        <if test=" minlatitude != null and minlatitude !=''and maxlatitude != null and maxlatitude !=''">
+            AND T.LATITUDE BETWEEN #{minlatitude} AND #{maxlatitude}
+        </if>
+    </sql>
+    <!--企业点信息-->
+    <sql id="queryEnterpriseInfo">
+        SELECT
+        '1' layerId,
+        T.ID pointId,
+        T.ENTERPRISE_NAME pointName,
+        T.LONGITUDE,
+        T.LATITUDE,
+        TO_CHAR(
+          '安全负责人:' || T.SAFETY_OFFICER ||
+          ',安全负责人电话:' || SAFETY_OFFICER_MOBILE ||
+          ',环保负责人:' || T.SAFETY_OFFICER ||
+          ',环保负责人电话:' || SAFETY_OFFICER_MOBILE ||
+          ',所属行业:' || T.INDUSTRY
+        ) AS contentInfo
+        FROM T_BAS_ENTERPRISE_DATA T
+        WHERE T.DELETE_STATE = 0
+        <if test="key!= null and key !='' ">
+            <bind name="key" value="'%' + key + '%'"/>
+            AND T.ENTERPRISE_NAME LIKE #{key}
+        </if>
+        <include refid="chekExtentSql"></include>
+    </sql>
+    <!--储罐点信息-->
+    <sql id="queryTankInfo">
+        SELECT
+        '2' layerId,
+        T.ID pointId,
+        T.JAR_NAME pointName,
+        T.LONGITUDE,
+        T.LATITUDE,
+        TO_CHAR('所属企业:  ' || E.ENTERPRISE_NAME) AS contentInfo
+        FROM C_EI_JAR T
+        LEFT JOIN T_BAS_ENTERPRISE_DATA E ON E.ID=T.ENTERPRISE_ID
+        WHERE T.DELETE_STATE = 0  AND E.DELETE_STATE=0
+        <if test="key!= null and key !='' ">
+            <bind name="key" value="'%' + key + '%'"/>
+            AND T.JAR_NAME LIKE #{key}
+        </if>
+        <include refid="chekExtentSql"></include>
+    </sql>
+    <!--重大危险源-->
+    <sql id="queryDangerInfo">
+        SELECT
+        '3' layerId,
+        T.ID pointId,
+        T.DANGSRC_NAME pointName,
+        T.LONGITUDE,
+        T.LATITUDE,
+        TO_CHAR (
+          '危险源级别:  ' ||(CASE DANGSRC_LEVEL WHEN '1' THEN '一级' WHEN '2' THEN '二级' WHEN '3' THEN '三级' WHEN '4' THEN '四级' ELSE '未知' END )||
+          ',所属企业:  ' || E.ENTERPRISE_NAME
+        ) AS contentInfo
+        FROM
+        C_EI_DANGSRC T
+        LEFT JOIN T_BAS_ENTERPRISE_DATA E ON E.ID=T.ENTERPRISE_ID
+        WHERE T.DELETE_STATE=0 AND E.DELETE_STATE=0
+        <if test="key!= null and key !='' ">
+            <bind name="key" value="'%' + key + '%'"/>
+            AND  T.DANGSRC_NAME LIKE #{key}
+        </if>
+        <include refid="chekExtentSql"></include>
+    </sql>
+    <!--生产装置信息-->
+    <sql id="queryProddevInfo">
+        SELECT
+        '4' layerId,
+        T.ID pointId,
+        T.PRODDEV_NAME pointName,
+        T.LONGITUDE,
+        T.LATITUDE,
+        TO_CHAR('所属企业:' || E.ENTERPRISE_NAME) AS contentInfo
+        FROM C_EI_PRODDEV T
+        LEFT JOIN T_BAS_ENTERPRISE_DATA E ON E.ID=T.ENTERPRISE_ID
+        WHERE T.DELETE_STATE = 0  AND E.DELETE_STATE=0
+        <if test="key!= null and key !='' ">
+            <bind name="key" value="'%' + key + '%'"/>
+            AND T.PRODDEV_NAME LIKE #{key}
+        </if>
+        <include refid="chekExtentSql"></include>
+    </sql>
+    <!--视频监控信息-->
+    <sql id="queryVideoInfo">
+        SELECT
+        '5' layerId,
+        T.ID pointId,
+        T.EQUIP_NAME pointName,
+        T.LONGITUDE,
+        T.LATITUDE,
+        TO_CHAR('') AS contentInfo
+        FROM C_MW_VIDEO T
+        WHERE T.DELETE_STATE = 0
+        <if test="key!= null and key !='' ">
+            <bind name="key" value="'%' + key + '%'"/>
+            AND T.EQUIP_NAME LIKE #{key}
+        </if>
+        <include refid="chekExtentSql"></include>
+    </sql>
+    <!--高空瞭望信息-->
+    <sql id="queryHighVideoInfo">
+        SELECT
+        '6' layerId,
+        T.ID pointId,
+        T.EQUIP_NAME pointName,
+        T.LONGITUDE,
+        T.LATITUDE,
+        TO_CHAR('') AS contentInfo
+        FROM C_MW_PUBLIC_VIDEO T
+        LEFT JOIN S_DICT S ON S.ID = T.EQUIP_TYPE
+        WHERE T.DELETE_STATE = 0 AND S.TEXT = '高空瞭望'
+        <if test="key!= null and key !='' ">
+            <bind name="key" value="'%' + key + '%'"/>
+            AND T.EQUIP_NAME LIKE #{key}
+        </if>
+        <include refid="chekExtentSql"></include>
+    </sql>
+    <!--查询点信息-->
+   <!-- <select id="getPoints" resultType="com.micromap.business.oneplatform.gis.dto.PointInfosDTO">
+        SELECT * FROM (
+          <include refid="queryEnterpriseInfo"></include>
+          UNION ALL
+          <include refid="queryTankInfo"></include>
+          UNION ALL
+          <include refid="queryDangerInfo"></include>
+          UNION ALL
+          <include refid="queryProddevInfo"></include>
+          UNION ALL
+          <include refid="queryVideoInfo"></include>
+          UNION ALL
+          <include refid="queryHighVideoInfo"></include>
+        )
+        WHERE 1=1
+        <if test="layerIds!= null and layerIds !='' ">
+            <bind name="idList" value="layerIds.split(',')"></bind>
+           AND layerId IN
+            <foreach collection="idList" item="item" index="index"
+                     open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+    </select>-->
+</mapper>

@@ -1,0 +1,71 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+隐患挂牌
+{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ request.contextPath }}/stylesheet/daily.css">
+<script>
+    var nowDeptId = '{{ user.dept.id }}';
+</script>
+{% endblock %}
+{% block content %}
+
+<div style="overflow-x:hidden" id="move_common">
+    <form id="form_submit" class="form-submit container-fluid" style="overflow-x:hidden">
+    <input type="hidden" name="hd_id" value="{{ hiddenDanger.id}}">
+    <div id="form_div" class="form-submit container-fluid" style="width:100%; height:100%; overflow-x:hidden; overflow-y:auto;font-size:10pt">
+        <input type="hidden" name="enter_dept_id" value="{{ user.dept.id }}">
+        <input type="hidden" name="hd_supervise_is_cancel" value="0">
+        <div style="font-weight:600;font-size:16;overflow-x:hidden;width:100%;margin-top:5px;margin-bottom:4px">隐患挂牌信息</div>
+        <div style="margin-left:15px;padding-right:18px;">
+            <div class="row  onerow" style="margin-bottom:8px">
+                <div class="col-6 onerow">
+                     <input title="" style="width: 100%" type="text" class="easyui-datebox" name="hd_brand_date"
+                           label="挂牌日期:" labelPosition="before" labelWidth="120px" labelAlign="right" value="{{ nowDate | date('yyyy-MM-dd') }}" >
+                </div>
+                <div class="col-6 ">
+                     <input title="" style="width: 100%" type="text" class="easyui-combobox" name="hd_supervise_level_code" editable="false"
+                           label="挂牌督办级别:" labelPosition="before" labelWidth="120px" labelAlign="right" value=""
+                           data-options="{url:'/api/system/dict/children?code=hd_supervise_level',valueField:'id',textField:'text'}">
+                </div>
+            </div>
+
+
+            <div class="row  onerow" style="margin-bottom:8px">
+                 <div class="col-6 required">
+                    <input title="" style="width: 100%" type="text" class="easyui-textbox"  name="hd_supervise_dept_name"
+                           value="{{ user.dept.deptName }}"
+                           label="挂牌单位:" labelPosition="before" labelWidth="120px" labelAlign="right" required="required">
+                </div>
+                <div class="col-6">
+                    <input title="" style="width: 100%" type="text" class="easyui-textbox" name="hd_cancel_dept_name"
+                           label="督办销号单位:" labelPosition="before" labelWidth="120px" labelAlign="right" value="" >
+
+                </div>
+            </div>
+             <div class="row onerow" style="margin-bottom:8px">
+                <div class="col-6 required" >
+                    <input title="" style="width: 100%" type="text" class="easyui-textbox" name="hd_supervise_docno"
+                           label="督办文号:" labelPosition="before" labelWidth="120px" labelAlign="right" required="required">
+                </div>
+            </div>
+
+            <div class="row onerow" style="margin-bottom:8px">
+                <div class="col-12 required">
+                    <input title="" style="width: 100%;height:50px" type="text" class="easyui-textbox" name="hd_supervise_appeal" multiline="true"
+                           label="督办要求:" labelPosition="before" labelWidth="120px" labelAlign="right" >
+                </div>
+            </div>
+
+        <div>
+    </div>
+    </form>
+</div>
+
+
+<div id="dialog"></div>
+<script src="{{ request.contextPath }}/javascript/daily/hiddendanger-superviseinfo/supervise.js"></script>
+
+{% endblock %}
+

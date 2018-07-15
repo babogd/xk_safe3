@@ -1,0 +1,54 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+企业化学品仓库
+{% endblock %}
+
+{% block content %}
+<div id="layout1" class="easyui-layout" fit="true" style="width: 100%;height: 100%">
+    <div region="west" style="width: 320px">
+        <div class="sidebar-tree">
+            <ul id="module_tree" style="width:300px;padding:5px;">
+            </ul>
+        </div>
+    </div>
+    <div region="center">
+        <div class="top-search-container" id="toolbar">
+            <form id="form_search" class="form-search container-fluid">
+                <div class="row">
+                    <div class="col-6">
+                        <input title="" style="width: 50%" type="text" class="easyui-textbox" id="prodcellName"
+                               name="prodcellName" label="生产单元区域名称:" labelWidth="150" labelAlign="right"
+                               labelPosition="before">
+                    </div>
+                    <div class="col-6">
+                        <input title="" style="width: 50%" type="text" class="easyui-combobox" id="prodcellType"
+                               name="prodcellType"
+                               label="生产单元区域类型:" labelPosition="before" labelAlign="right" labelWidth="200">
+                    </div>
+                </div>
+            </form>
+            <div class="toolbar-button">
+                <span class="button-left">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_add">新增</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_edit">修改</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_del">删除</a>
+                </span>
+                <span class="button-right">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_search">查询</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_reset">重置</a>
+                </span>
+            </div>
+        </div>
+        <div class="center-datagrid-container" style="height: 100%;width: 100%;">
+            <div id="datagrid_list" toolbar="#toolbar">
+            </div>
+        </div>
+    </div>
+    <div id="dialog" style="width: 60%; height: 80%; overflow:hidden;"></div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/enterprise/enterprise-prodcell/list.js"></script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+监督检查隐患
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ request.contextPath }}/stylesheet/daily.css">
+{% endblock %}
+{% block content %}
+
+<div id="giTabs" class="easyui-tabs" style="width:100%;height:100%;" narrow="true" pill="true">
+  {# <div title="全部隐患" data-options="href:'{{ request.contextPath }}/view/hd/gov_inspect/all',closed:false,cache:true">
+   </div>
+   <div title="超期隐患" data-options="href:'{{ request.contextPath }}/view/hd/gov_inspect2/delay',closed:false">
+   </div>
+   <div title="未整改隐患" data-options="href:'{{ request.contextPath }}/view/hd/gov_inspect3/notyet',closed:false">
+   </div>
+   <div title="已整改隐患" data-options="href:'{{ request.contextPath }}/view/hd/gov_inspect4/finish',closed:false">
+   </div>#}
+</div>
+
+
+{% endblock %}
+
+{% block footer %}
+
+<script>
+
+  $(function(){
+
+    addTab("giTabs", "全部隐患", "{{ request.contextPath }}/hd/view/inspect_all?hdSrc=2", false);
+    addTab("giTabs", "超期隐患", "{{ request.contextPath }}/hd/view/inspect_delay?hdSrc=2", false);
+    addTab("giTabs", "未整改隐患", "{{ request.contextPath }}/hd/view/inspect_notyet?hdSrc=2", false);
+    addTab("giTabs", "已整改隐患", "{{ request.contextPath }}/hd/view/inspect_finish?hdSrc=2", false);
+
+    $("#giTabs").tabs("select",0);
+  });
+</script>
+<script src="{{ request.contextPath }}/javascript/daily/hiddendanger-baseinfo/baseinfo.js"></script>
+<script src="{{ request.contextPath }}/javascript/daily/hiddendanger-common/common.js"></script>
+
+{% endblock %}

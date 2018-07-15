@@ -1,0 +1,54 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+重点监管危险化工工艺
+{% endblock %}
+
+{% block content %}
+<form id="form_submit" class="form-submit container-fluid">
+    <input type="hidden" name="enterpriseId[id]" id="enterpriseId">
+    <input type="hidden" name="medsId" value="1">
+    <div class="row" style="width: 150%">
+        <div class="col-6" required>
+            <input title="" style="width: 100%" type="text" class="easyui-combogrid" id="chemartArt"
+                   name="chemartArt[id]"
+                   label="重点监管危险化工工艺:" labelPosition="before" labelAlign="right" labelWidth="200" resource="ture" required="required">
+        </div>
+    </div>
+    <div class="row" style="width: 150%; height: 15%">
+        <div class="col-6" required>
+            <input title="" style="width: 100%;height: 100%" type="text" class="easyui-textbox" id="ctrlMode" name="ctrlMode"
+                   label="控制方式:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row" style="width: 150%; height: 15%">
+        <div class="col-6" required>
+            <input title="" style="width: 100%;height: 100%" type="text" class="easyui-textbox" id="ctrlPara" name="ctrlPara"
+                   label="控制参数:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row" style="width: 150%; height: 15%">
+        <div class="col-6" required>
+            <input title="" style="width: 100%;height: 100%" type="text" class="easyui-textbox" id="ctrlMeasure"
+                   name="ctrlMeasure"
+                   label="控制措施:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="easyui-formbox" id="isNationDemand" label="是否满足国家规定:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isNationDemand" label="是" value="0" checked>
+                <input title="" class="easyui-radiobox" name="isNationDemand" label="否" value="1">
+            </div>
+        </div>
+    </div>
+</form>
+<div class="form-button">
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_save">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_close">关闭</a>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/enterprise/enterprise-chemart/detail.js"></script>
+{% endblock %}

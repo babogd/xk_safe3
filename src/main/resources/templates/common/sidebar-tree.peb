@@ -1,0 +1,5 @@
+<div class="sidebar-tree">
+    <ul id="sidebar_tree" class="mini-tree" url="/data/tree.json" style="width:300px;padding:5px;"
+        showTreeIcon="true" textField="text" idField="id" value="ajax" expandOnNodeClick="true">
+    </ul>
+</div>

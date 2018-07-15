@@ -1,0 +1,51 @@
+{% extends '../../common/layout' %}
+
+{% block content %}
+<div id="cc" class="easyui-layout" fit="true">
+    <div data-options="region:'north',border:false" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 border-bottom box-shadow" style="height:90px;background: #0a142d;">
+        <h5 class="my-0 mr-md-auto text-white font-weight-normal">安全环保应急一体化平台</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-white" href="{{ href('/') }}">首页</a>
+            <a class="p-2 text-white" href="{{ href('/view/demo/enterprise-list') }}">一企一档</a>
+            <a class="p-2 text-white" href="#">日常管理</a>
+            <a class="p-2 text-white" href="#">监测监控</a>
+            <a class="p-2 text-white" href="#">统计分析</a>
+        </nav>
+
+        <a class="text-white easyui-menubutton" href="javascript:void(0)" menu="#mm">
+            欢迎你，{{ user.userName | default('匿名')}}
+        </a>
+        <div id="mm" style="width: 150px;">
+            <div>
+                <a href="{{ href('/login?logout') }}">注销</a>
+            </div>
+        </div>
+    </div>
+    <div class="easyui-panel sidebar-tree" data-options="region:'west',border:false" style="width:200px;">
+        <ul id="sidebar_tree">
+        </ul>
+    </div>
+    <div data-options="region:'center',border:false" style="overflow:hidden;">
+        <iframe id="main" src="{{ request.contextPath }}/view/enterprise/enterprise-dangsrc/daily-list" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+    </div>
+</div>
+
+{% endblock %}
+{% block footer %}
+<script>
+    $('#sidebar_tree').tree({
+        url: '/data/menu.json',
+        method: 'get',
+        idField: 'id',
+        textField: 'text',
+        parentField: 'pid',
+        onClick: function(node) {
+            if (typeof node.url !== 'undefined' && node.url) {
+                $('#main').attr('src', '{{ request.contextPath }}' + node.url);
+                {#window.location.href = '{{ request.contextPath }}' + node.url;#}
+            }
+        }
+    });
+</script>
+{% endblock %}
+

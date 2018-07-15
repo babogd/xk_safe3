@@ -1,0 +1,140 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+企业化学品仓库
+{% endblock %}
+
+{% block content %}
+<div id="layout1" class="easyui-layout" fit="true" style="width: 100%;height: 100%">
+    <div region="center">
+        <div class="top-search-container" id="toolbar">
+            <form id="form_search" class="form-search container-fluid">
+                <div class="row">
+                    <div class="col-6">
+                        <input title="" style="width: 300px" type="text" class="easyui-textbox" id="prodcellName"
+                               name="prodcellName" label="生产单元区域名称:" labelWidth="150" labelAlign="right"
+                               labelPosition="before">
+                    </div>
+                    <div class="col-6">
+                        <input title="" style="width: 350px" type="text" class="easyui-combobox" id="prodcellType"
+                               name="prodcellType"
+                               label="生产单元区域类型:" labelPosition="before" labelAlign="right" labelWidth="200">
+                    </div>
+                </div>
+            </form>
+            <div class="toolbar-button">
+                <span class="button-right">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_search">查询</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_reset">重置</a>
+                    <a class="easyui-linkbutton" iconCls="icon-ok" style="background:#43a2f8;color:#fff"
+                       onclick="onOk()">确定</a>
+                </span>
+            </div>
+        </div>
+        <div class="center-datagrid-container" style="height: 100%;width: 100%;">
+            <div id="datagrid_list" toolbar="#toolbar">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script type="application/javascript">
+    /**
+     * @author limeng
+     * @file 生产单元区域列表js
+     */
+    /*global window P Base $*/
+    $(function () {
+        var PageModel = new P(Base, function () {
+
+            /**
+             * 初始化数据表格
+             */
+            function initDatagridList() {
+                var me = this;
+                me.datagridList.datagrid({
+                    url: me.apiPage,
+                    singleSelect: true,
+                    rownumbers: true,
+                    pagination: true,
+                    autoRowHeight: true,
+                    fit: true,
+                    remoteSort: true,
+                    idField: 'id',
+                    columns: [
+                        [
+                            {field: 'id', checkbox: true},
+                            {
+                                field: 'prodcellName',
+                                title: '生产单元区域名称',
+                                halign: 'center',
+                                align: 'left',
+                                width: '40%',
+                                sortable: true,
+                                formatter: me.detailRenderer.bind(me)
+                            },
+                            {
+                                field: 'prodcellType.text',
+                                title: '生产单元区域类别',
+                                halign: 'center',
+                                align: 'left',
+                                width: '40%',
+                                sortable: true
+                            }
+                        ]]
+                });
+            }
+
+            function initprodcellTypeComboBox() {
+                $('#prodcellType').combobox({
+                    url: '/api/system/dict/children?code=prodcellType',
+                    method: 'get',
+                    valueField: 'id',
+                    textField: 'text',
+                    reversed: true,
+                    showNullItem: true
+                });
+            }
+
+
+            return {
+                viewList: '/view/enterprise/enterprise-prodcell/list',
+                viewDetail: '/view/enterprise/enterprise-prodcell/detail',
+                apiPage: '/api/enterprise/enterprise-prodcell/page',
+                apiDelete: '/api/enterprise/enterprise-prodcell/delete',
+                apiAll: '/data/tree.json',
+                initDatagridList: initDatagridList,
+                initprodcellTypeComboBox: initprodcellTypeComboBox
+            };
+        });
+        var pageModel = window.pageModel = new PageModel('生产单元区域');
+        pageModel.bindEventByIdName();
+        pageModel.initDatagridList();
+        pageModel.initprodcellTypeComboBox();
+    });
+
+    //确定回传坐标值
+    function onOk() {
+        try {
+            var row = $('#datagrid_list').datagrid('getSelected');
+            var prodcellName = row.prodcellName;
+            var id = row.id;
+            var doc = parent.document;
+            if (!doc) {
+                throw new Error('无法访问父页面！');
+            }
+            if (prodcellName != null && id != null) {
+                parent.$('#prodcellId').textbox("setValue", id);
+                parent.$('#prodcellName').textbox("setValue", prodcellName);
+            } else {
+                alert("没有选择内容！");
+            }
+            parent.$('#' + $(window.frameElement).parent().attr('id')).dialog('close');
+        } catch (e) {
+            window.close();
+        }
+    }
+</script>
+{% endblock %}

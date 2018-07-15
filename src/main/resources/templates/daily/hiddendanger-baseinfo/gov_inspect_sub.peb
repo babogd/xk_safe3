@@ -1,0 +1,84 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+监督检查隐患
+{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ request.contextPath }}/stylesheet/daily.css">
+{% endblock %}
+{% block content %}
+
+stat: {{ stat }}
+<div id="layout_inspect_sub" class="easyui-layout" fit="true" style="width: 100%;height: 100%">
+    <div region="center">
+        <div class="top-search-container123" id="toolbar">
+            <form id="form_search" class="form-search container-fluid">
+                <div class="row">
+                    <div class="col-6">
+                        <input title="" style="width: 100%" type="text" class="easyui-textbox" id="code" name="code"
+                               label="类型编码:" labelPosition="before" labelAlign="right">
+                    </div>
+                    <div class="col-6">
+                        <input title="" style="width: 100%" type="text" class="easyui-textbox" id="text" name="text"
+                               label="名称:" labelPosition="before"  labelAlign="right">
+                    </div>
+                </div>
+            </form>
+            <div class="toolbar-button">
+                <span class="button-left">
+                {% if stat == "all" %}
+                    <a href="javascript:add_gen_hd()" class="easyui-linkbutton">登记一般隐患</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton">登记重大隐患</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton">整改</a>
+                {% elseif stat == "delay" or stat == "notyet"%}
+                    <a href="javascript:void(0)" class="easyui-linkbutton">整改</a>
+                {% endif %}
+                    <a href="javascript:void(0)" class="easyui-linkbutton">删除</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton">移交</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton">挂牌督办</a>
+                </span>
+                <span class="button-right">
+                    <a href="javascript:void(0)" class="easyui-linkbutton">查询</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton">重置</a>
+                </span>
+            </div>
+        </div>
+        <div class="center-datagrid-container" style="height: 100%;width: 100%;">
+            <div id="hdList" toolbar="#toolbar" width="100%">
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dialog"></div>
+
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/daily/hiddendanger-baseinfo/gov_inspect_sub.js"></script>
+<script>
+function add_gen_hd(){
+    G.open({
+        url: "/hd/view/add_hd_gen?hdSrc={{ hdSrc }}",
+        title: "登记一般隐患",
+        pageType: G.PAGE_TYPE.NEW,
+        ifrmId:"genHdAddFrm",
+        width:"60%",
+        height:"80%",
+        buttons:[
+            {
+                id:'btn_save',
+                text:'保存',
+                handler:function(){
+                    var inWin = document.getElementById('genHdAddFrm').contentWindow;
+                    inWin.pageModel.save();
+                }
+            },{
+                text:'关闭',
+                handler:function(){
+                    $("#dialog").dialog("close");
+                }
+            }]
+    });
+}
+</script>
+{% endblock %}

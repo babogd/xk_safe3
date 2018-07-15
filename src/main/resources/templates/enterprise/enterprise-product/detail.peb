@@ -1,0 +1,57 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+企业产品信息详情
+{% endblock %}
+
+{% block content %}
+<form id="form_submit" class="form-submit container-fluid">
+    <input type="hidden" name="enterpriseId" id="enterpriseId">
+    <div class="row">
+        <div class="col-12 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="productName"
+                   name="productName"
+                   label="产品名称:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="chemicalName" name="chemicalName"
+                   label="化学品名称:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 required">
+            <input title="" style="width: 100%" type="text" class="easyui-numberbox" id="output" name="output"
+                   label="年产量:" labelPosition="before" labelAlign="right" labelWidth="200" required="required" precision="2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="measurementUnit" name="measurementUnit"
+                   label="计量单位:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 required">
+            <input title="" style="width: 100%" type="text"  class="easyui-textbox" id="mainProcess" name="mainProcess"
+                   label="主要生产工艺:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="remark" name="remark"
+                   label="备注:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+</form>
+<div class="form-button">
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_save">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_close">关闭</a>
+</div>
+<div id="dialog"></div>
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/enterprise/enterprise-product/detail.js"></script>
+{% endblock %}

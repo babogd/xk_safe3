@@ -1,0 +1,254 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+企业化学品仓库
+{% endblock %}
+
+{% block content %}
+<div id="layout1" class="easyui-layout" fit="true" style="width: 100%;height: 100%">
+    <div region="west" style="width: 320px">
+        <div class="sidebar-tree">
+            <ul id="module_tree" style="width:300px;padding:5px;">
+            </ul>
+        </div>
+    </div>
+    <div region="center" style="padding-top: 50px">
+        <div class="top-search-container" id="toolbar">
+            <form id="form_submit" class="form-submit container-fluid">
+                <input type="hidden" id="id" name="id">
+                <input type="hidden" id="enterpriseId" name="enterpriseId">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="dangsrc" label="是否有重大危险源:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px">
+                                <input title="" class="easyui-radiobox" name="dangsrc" label="是" value="1">
+                                <input title="" class="easyui-radiobox" name="dangsrc" label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 required">
+                        <div class="easyui-formbox" id="dangerChemicals" label="是否涉及危险化学品:" labelAlign="right"
+                             labelWidth="200">
+                                <span style="margin-left: 80px" id="inputDangerChemicals">
+                                <input title="" class="dangerChemicals" class="easyui-radiobox" name="dangerChemicals"
+                                       label="是" value="1"
+                                       required="required">
+                                <input title="" class="dangerChemicals" class="easyui-radiobox" name="dangerChemicals"
+                                       label="否" value="0"
+                                       required="required">
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-6" required id="dangerChemicalsView" style="display: none">
+                        <div class="easyui-formbox" label="危险化学品类型:" labelAlign="right"
+                             labelWidth="200">
+                            <input class="easyui-combobox" id="dangerChemicalsType" name="dangerChemicalsType"
+                                   style="width:280px;"
+                                   data-options="
+                                    data: getDangerChemicalsType(),
+                                    method: 'get',
+                                    valueField:'value',
+                                    textField:'text',
+                                    groupField:'group',
+                                    reversed: true
+                                ">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 required">
+                        <div class="easyui-formbox" id="emphasisDangerChemicals" label="是否涉及重点监管危险化品:"
+                             labelAlign="right"
+                             labelWidth="200">
+                                <span style="margin-left: 80px">
+                                <input title="" class="easyui-radiobox" name="emphasisDangerChemicals" label="是"
+                                       value="1"
+                                       required="required">
+                                <input title="" class="easyui-radiobox" name="emphasisDangerChemicals" label="否"
+                                       value="0"
+                                       required="required">
+                                </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="dust" label="生产作业过程中是否产生粉尘:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px" id="inputDust">
+                                <input class="dust" title="" class="easyui-radiobox" name="dust" label="是" value="1">
+                                <input class="dust" title="" class="easyui-radiobox" name="dust" label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6" id="dustTypeView" style="display: none">
+                        <input title="" style="width: 483px" type="text" class="easyui-combobox" id="dustType"
+                               name="dustType[id]"
+                               label="粉尘类型:" labelPosition="before" labelAlign="right" labelWidth="200">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="liquidAmmonia" label="生产过程中是否涉及液氨:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px" id="inputLiquidAmmonia">
+                                <input class="liquidAmmonia" title="" class="easyui-radiobox" name="liquidAmmonia"
+                                       label="是" value="1">
+                                <input class="liquidAmmonia" title="" class="easyui-radiobox" name="liquidAmmonia"
+                                       label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6" id="liquidAmmoniaTypeView" style="display: none">
+                        <input title="" style="width: 483px" type="text" class="easyui-combobox" id="liquidAmmoniaType"
+                               name="liquidAmmoniaType[id]"
+                               label="涉液氨生产企业类型:" labelPosition="before" labelAlign="right" labelWidth="200">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6" id="liquidAmmoniaUseTypeView" style="display: none">
+                        <input title="" style="width: 483px" type="text" class="easyui-combobox" id="liquidAmmoniaUse"
+                               name="liquidAmmoniaUse[id]"
+                               label="产品用途:" labelPosition="before" labelAlign="right" labelWidth="200">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="specialtyEquipment" label="是否使用特种设备:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px" id="inputSpecialtyEquipment">
+                                <input class="specialtyEquipment" title="" class="easyui-radiobox"
+                                       name="specialtyEquipment" label="是" value="1">
+                                <input class="specialtyEquipment" title="" class="easyui-radiobox"
+                                       name="specialtyEquipment" label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6" id="specialtyEquipmentTypeView" style="display: none">
+                        <input title="" style="width: 483px" type="text" class="easyui-combobox"
+                               id="specialtyEquipmentType"
+                               name="specialtyEquipmentType[id]"
+                               label="特种设备类型:" labelPosition="before" labelAlign="right" labelWidth="200">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="dangerEquipment" label="是否使用危险设备:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px" id="inputDangerEquipment">
+                                <input class="dangerEquipment" title="" class="easyui-radiobox" name="dangerEquipment"
+                                       label="是" value="1">
+                                <input class="dangerEquipment" title="" class="easyui-radiobox" name="dangerEquipment"
+                                       label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6" id="dangerEquipmentTypeView" style="display: none">
+                        <div class="easyui-formbox" label="危险设备类型:" labelAlign="right"
+                             labelWidth="200">
+                            <input class="easyui-combobox" id="dangerEquipmentType" name="dangerEquipmentType"
+                                   style="width:280px;"
+                                   data-options="
+                                    data: getDangerEquipmentType(),
+                                    method: 'get',
+                                    valueField:'value',
+                                    textField:'text',
+                                    groupField:'group'
+                                ">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="coatingDrying" label="是否有涂层烘干室:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px">
+                                <input title="" class="easyui-radiobox" name="coatingDrying" label="是" value="1">
+                                <input title="" class="easyui-radiobox" name="coatingDrying" label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="generalWarehouse" label="是否有一般仓库:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px">
+                                <input title="" class="easyui-radiobox" name="generalWarehouse" label="是" value="1">
+                                <input title="" class="easyui-radiobox" name="generalWarehouse" label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="limitedSpace" label="是否存在有限空间:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px">
+                                <input title="" class="easyui-radiobox" name="limitedSpace" label="是" value="1">
+                                <input title="" class="easyui-radiobox" name="limitedSpace" label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="cleanWorkshop" label="是否有洁净厂房:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px">
+                                <input title="" class="easyui-radiobox" name="cleanWorkshop" label="是" value="1">
+                                <input title="" class="easyui-radiobox" name="cleanWorkshop" label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="piatingWorkshop" label="是否有电镀车间:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px">
+                                <input title="" class="easyui-radiobox" name="piatingWorkshop" label="是" value="1">
+                                <input title="" class="easyui-radiobox" name="piatingWorkshop" label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="diningHall" label="是否有食堂:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px">
+                                <input title="" class="easyui-radiobox" name="diningHall" label="是" value="1">
+                                <input title="" class="easyui-radiobox" name="diningHall" label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="easyui-formbox" id="occupationalDisease" label="是否有职业病危害:" labelAlign="right"
+                             labelWidth="200">
+                            <span style="margin-left: 80px">
+                                <input title="" class="easyui-radiobox" name="occupationalDisease" label="是" value="1">
+                                <input title="" class="easyui-radiobox" name="occupationalDisease" label="否" value="0">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="form-button">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_save">保存</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/enterprise/enterprise-danger-nature/list.js"></script>
+{% endblock %}

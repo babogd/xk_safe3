@@ -1,0 +1,148 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+重大危险源信息
+{% endblock %}
+
+{% block content %}
+<div id="layout1" class="easyui-layout" fit="true" style="width: 100%;height: 100%">
+    <div region="center">
+        <div class="top-search-container" id="toolbar">
+            <form id="form_search" class="form-search container-fluid">
+                <div class="row">
+                    <div class="col-4">
+                        <input title="" style="width: 100%" type="text" class="easyui-textbox" id="dangsrcName"
+                               name="dangsrcName" label="重大危险源名称:" labelWidth="150" labelAlign="right"
+                               labelPosition="before">
+                    </div>
+                    <div class="col-4">
+                        <select title="" style="width: 100%" type="text" class="easyui-combobox" id="dangsrcLevel"
+                                name="dangsrcLevel" label="重大危险源级别:" labelWidth="150" labelAlign="right"
+                                labelPosition="before">
+                            <option value=""></option>
+                            <option value="1">一级</option>
+                            <option value="2">二级</option>
+                            <option value="3">三级</option>
+                            <option value="4">四级</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="toolbar-button">
+                <span class="button-right">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_search">查询</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_reset">重置</a>
+                    <a class="easyui-linkbutton" iconCls="icon-ok" style="background:#43a2f8;color:#fff"
+                       onclick="onOk()">确定</a>
+                </span>
+            </div>
+        </div>
+        <div class="center-datagrid-container" style="height: 100%;width: 100%;">
+            <div id="datagrid_list" toolbar="#toolbar">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script type="application/javascript">
+    $(function () {
+        var PageModel = new P(Base, function () {
+            var enterpriseId = G.getParaInt('enterpriseId');
+
+            /**
+             * 初始化数据表格
+             */
+            function initDatagridList() {
+                var me = this;
+                me.datagridList.datagrid({
+                    url: me.apiPage,
+                    singleSelect: true,
+                    rownumbers: true,
+                    pagination: true,
+                    autoRowHeight: true,
+                    fit: true,
+                    remoteSort: true,
+                    idField: 'id',
+                    columns: [
+                        [
+                            {field: 'id', checkbox: true},
+                            {
+                                field: 'dangsrcName',
+                                title: '重大危险源名称',
+                                halign: 'center',
+                                align: 'left',
+                                width: '40%',
+                                sortable: true,
+                                formatter: me.detailRenderer.bind(me)
+                            },
+                            {
+                                field: 'dangsrcLevel',
+                                title: '重大危险源级别',
+                                halign: 'center',
+                                align: 'left',
+                                width: '40%',
+                                sortable: true,
+                                formatter: function (value) {
+                                    var str = '';
+                                    switch (value) {
+                                        case 1:
+                                            str = '一级';
+                                            break;
+                                        case 2:
+                                            str = '二级';
+                                            break;
+                                        case 3:
+                                            str = '三级';
+                                            break;
+                                        case 4:
+                                            str = '四级';
+                                            break;
+                                    }
+                                    return str;
+                                }
+                            }
+                        ]]
+                });
+            }
+
+            return {
+                viewList: '/view/enterprise/enterprise-dangsrc/list?enterpriseId=' + enterpriseId,
+                viewDetail: '/view/enterprise/enterprise-dangsrc/detail?enterpriseId=' + enterpriseId,
+                apiPage: '/api/enterprise/enterprise-dangsrc/page',
+                initDatagridList: initDatagridList
+            };
+        });
+        var pageModel = window.pageModel = new PageModel('重大危险源信息');
+        pageModel.bindEventByIdName();
+        pageModel.initDatagridList();
+    });
+
+    //确定回传坐标值
+    function onOk() {
+        try {
+            var row = $('#datagrid_list').datagrid('getSelected');
+            if (row.length > 1) {
+                G.fail('只能选择一条数据！');
+                return false;
+            }
+            var dangsrcName = row.dangsrcName;
+            var id = row.id;
+            var doc = parent.document;
+            if (!doc) {
+                throw new Error('无法访问父页面！');
+            }
+            if (dangsrcName != null && id != null) {
+                parent.$('#dangsrcId').textbox("setValue", id);
+                parent.$('#dangsrcName').textbox("setValue", dangsrcName);
+            } else {
+                alert("没有选择内容！");
+            }
+            parent.$('#' + $(window.frameElement).parent().attr('id')).dialog('close');
+        } catch (e) {
+            window.close();
+        }
+    }
+</script>
+{% endblock %}

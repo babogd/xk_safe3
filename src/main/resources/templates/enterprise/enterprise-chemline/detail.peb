@@ -1,0 +1,420 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+危化品运输管道详情
+{% endblock %}
+
+{% block content %}
+<form id="form_submit" class="form-submit container-fluid">
+    <input type="hidden" id="enterpriseId" name="enterpriseId">
+    <input type="hidden" name="medsId" value="1">
+    <div style="background: #dad7d7;margin-top:12px;margin-bottom: 12px;">&emsp;权属单位情况</div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="propDeptName"
+                   name="propDeptName"
+                   label="产权单位名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="propContactorName"
+                   name="propContactorName"
+                   label="产权单位联系人:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="propContactorTel"
+                   name="propContactorTel"
+                   label="产权单位联系电话:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="useDeptName" name="useDeptName"
+                   label="使用单位名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="useContactorName"
+                   name="useContactorName"
+                   label="使用单位联系人:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="useContactorTel"
+                   name="useContactorTel"
+                   label="使用单位联系电话:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row" required>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="chemlineName" name="chemlineName"
+                   label="管道名称:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6" required>
+            <input title="" style="width: 100%" type="text" class="easyui-combobox" id="layMode"
+                   name="layMode[id]"
+                   label="管道铺设方式:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="layHigh" name="layHigh"
+                   label="敷设相对标高（cm）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="startPoint" name="startPoint"
+                   label="管道起点:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="endPoint" name="endPoint"
+                   label="管道终点:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="chemlineLength"
+                   name="chemlineLength"
+                   label="管道长度（Km）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="chemlineDiameter"
+                   name="chemlineDiameter"
+                   label="管径（mm）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="chemlineThick"
+                   name="chemlineThick"
+                   label="壁厚（mm）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="material" name="material"
+                   label="管道材质:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-combobox" id="chemlineStatus"
+                   name="chemlineStatus[id]"
+                   label="运行状态:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="chemlineAttach"
+                   name="chemlineAttach"
+                   label="管道附属设施:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="transMateria" name="transMateria"
+                   label="输送物料:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="dangeProp" name="dangeProp"
+                   label="主要危险特性:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="onlineQty" name="onlineQty"
+                   label="在线量（T）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="designPressure"
+                   name="designPressure"
+                   label="设计压力（MPa）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="maxPressure" name="maxPressure"
+                   label="最高工作压力（Mpa）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="useYears" name="useYears"
+                   label="设计使用年限（年）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="transAbility" name="transAbility"
+                   label="输送能力:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="gasStatus" name="gasStatus"
+                   label="气态（Km3/a）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="catalogNo" name="catalogNo"
+                   label="液态（Kt/a）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div style="background: #dad7d7;margin-top:12px;margin-bottom: 12px;">&emsp;建设管理情况</div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="completeDate" name="completeDate"
+                   label="安装竣工日期:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="useDate" name="useDate"
+                   label="投用日期:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="easyui-formbox" id="isPlanpermit" label="是否办理规划许可:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isPlanpermit" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isPlanpermit" label="否" value="0">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="easyui-formbox" id="isPassCheck" label="是否通过安全竣工验收:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isPassCheck" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isPassCheck" label="否" value="0">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="designDeptName"
+                   name="designDeptName"
+                   label="设计单位名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="designDeptQual"
+                   name="designDeptQual"
+                   label="设计单位资质:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="buildDeptName"
+                   name="buildDeptName"
+                   label="施工单位名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="buildDeptQual"
+                   name="buildDeptQual"
+                   label="施工单位资质:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="easyui-formbox" id="isPressLine" label="是否压力管道:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isPressLine" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isPressLine" label="否" value="0">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="easyui-formbox" id="isPathAccord" label="实际路径是否与竣工图纸一致:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isPathAccord" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isPathAccord" label="否" value="0">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <input title="" style="width: 100%;height: 100%" type="text" class="easyui-textbox" id="pathCompare"
+                   name="pathCompare"
+                   label="实际路径与竣工图纸对照情况:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div style="background: #dad7d7;margin-top:12px;margin-bottom: 12px;">&emsp;使用管理和安全现状</div>
+    <div class="row">
+        <div class="col-6">
+            <div class="easyui-formbox" id="isEmerSchema" label="是否制定应急预案:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isEmerSchema" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isEmerSchema" label="否" value="0">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="easyui-formbox" id="isCycleCheck" label="管道是否定期检验检测:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isCycleCheck" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isCycleCheck" label="否" value="0">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="accident" name="accident"
+                   label="管道曾发生安全事故情况（起）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="safeDefend" name="safeDefend"
+                   label="管道安全防护区内建设施工情况（处）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="easyui-formbox" id="isCrossCity" label="是否有穿越城镇建成区管线:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isCrossCity" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isCrossCity" label="否" value="0">
+            </div>
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="crossLength" name="crossLength"
+                   label="穿越长度（Km）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <input title="" style="width: 100%;height: 100%" type="text" class="easyui-textbox" id="attachInfo"
+                   name="attachInfo"
+                   label="管道附属设施情况（43号令第三十八条）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="easyui-formbox" id="isCrossPubarea" label="是否穿越43号令第二章规定的公共区域:" labelAlign="right"
+                 labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isCrossPubarea" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isCrossPubarea" label="否" value="0">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="easyui-formbox" id="isSeparate" label="有无隔离保护措施:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isSeparate" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isSeparate" label="否" value="0">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <input title="" style="width: 100%;height: 100%" type="text" class="easyui-textbox" id="accord43term"
+                   name="accord43term"
+                   label="管道安全现状与43号令规定的符合情况:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="oppress" name="oppress"
+                   label="管道被违章占压情况（处）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="otherHdNum" name="otherHdNum"
+                   label="其它主要隐患（个）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="easyui-formbox" id="isNeedCoord" label="整改是否需要政府协调:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isNeedCoord" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isNeedCoord" label="否" value="0">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="easyui-formbox" id="isRiskAssess" label="是否开展检测和安全风险评估:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isRiskAssess" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isRiskAssess" label="否" value="0">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="assessDate" name="assessDate"
+                   label="评估时间:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="assessRiskLevel"
+                   name="assessRiskLevel"
+                   label="评估确定的安全风险等级:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="easyui-formbox" id="isFlag" label="有无标志标识:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isFlag" label="是" value="1">
+                <input title="" class="easyui-radiobox" name="isFlag" label="否" value="0">
+            </div>
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="setFlagNum" name="setFlagNum"
+                   label="设置标志（处）:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="checkFreq" name="checkFreq"
+                   label="巡查频率:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="fillPsnName" name="fillPsnName"
+                   label="填表人姓名:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="fillDate" name="fillDate"
+                   label="填表日期:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div style="background: #dad7d7;margin-top:12px;margin-bottom: 12px;">&emsp;附件上传</div>
+    <div class="row">
+        <div class="col-12">
+            <div class="easyui-formbox" label="管道附属设施:" labelAlign="right" labelWidth="200">
+                <div class="accessory-container" id="accessoryFS"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="easyui-formbox" label="实际路径与竣工图纸对照情况:" labelAlign="right" labelWidth="200">
+                <div class="accessory-container" id="accessoryTZ"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="easyui-formbox" label="管道曾发生安全事故情况:" labelAlign="right" labelWidth="200">
+                <div class="accessory-container" id="accessorySG"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="easyui-formbox" label="管道安全防护区内建设施工情况:" labelAlign="right" labelWidth="200">
+                <div class="accessory-container" id="accessoryFH"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="easyui-formbox" label="管道被违章占压情况:" labelAlign="right" labelWidth="200">
+                <div class="accessory-container" id="accessoryWZ"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="easyui-formbox" label="其它主要隐患:" labelAlign="right" labelWidth="200">
+                <div class="accessory-container" id="accessoryYH"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="easyui-formbox" label="整改是否需要政府协调:" labelAlign="right" labelWidth="200">
+                <div class="accessory-container" id="accessoryZG"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="easyui-formbox" label="其他文件、资料:" labelAlign="right" labelWidth="200">
+                <div class="accessory-container" id="accessoryQT"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="form-button">
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_save">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_close">关闭</a>
+</div>
+{% include '../../common/accessory' %}
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/enterprise/enterprise-chemline/detail.js"></script>
+{% endblock %}

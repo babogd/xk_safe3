@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.micromap.business.oneplatform.statistic.mapper.DangerSourceLevelMapper">
+
+    <select id="dangerSourceLevelStatistic" resultType="java.util.Map">
+        WITH a AS(
+			SELECT 1 DANGSRC_LEVEL,'一级重大危险源' DANGSRC_LEVEL_NAME FROM dual
+		UNION
+			SELECT 2 DANGSRC_LEVEL,'二级重大危险源' DANGSRC_LEVEL_NAME FROM dual
+		UNION
+			SELECT 3 DANGSRC_LEVEL,'三级重大危险源' DANGSRC_LEVEL_NAME FROM dual
+		UNION
+			SELECT 4 DANGSRC_LEVEL,'四级重大危险源' DANGSRC_LEVEL_NAME FROM dual
+		),
+		b AS(
+			SELECT
+				ced.DANGSRC_LEVEL,
+				COUNT (ced.DANGSRC_LEVEL) COUNT
+			FROM
+				C_EI_DANGSRC ced
+			WHERE ced.DELETE_STATE = 0
+			<if test=" startTime != null and startTime !='' ">
+				<![CDATA[
+				  	AND (START_ARCHIVE_DATE >=TO_DATE(#{startTime}, 'yyyy-MM-dd HH24:mi:ss') )
+				]]>
+			</if>
+			<if test=" endTime != null and endTime !='' ">
+				<![CDATA[
+				  	AND (START_ARCHIVE_DATE <=TO_DATE(#{endTime}, 'yyyy-MM-dd HH24:mi:ss') )
+				]]>
+			</if>
+			GROUP BY
+				ced.DANGSRC_LEVEL
+		)
+
+		SELECT
+		a.*,
+		CASE WHEN b.COUNT IS NULL THEN 0 ELSE b.COUNT END COUNT
+
+		from a LEFT JOIN b ON a.DANGSRC_LEVEL=b.DANGSRC_LEVEL
+    </select>
+
+	<select id="list" resultType="java.util.Map">
+		WITH
+
+		temp AS(
+			SELECT
+				*
+			FROM
+				C_EI_DANGSRC ced
+			WHERE
+				ced.DELETE_STATE = 0
+			<if test=" startTime != null and startTime !='' ">
+				<![CDATA[
+					  AND (START_ARCHIVE_DATE >=TO_DATE(#{startTime}, 'yyyy-MM-dd HH24:mi:ss') )
+				]]>
+			</if>
+			<if test=" endTime != null and endTime !='' ">
+				<![CDATA[
+					  AND (START_ARCHIVE_DATE <=TO_DATE(#{endTime}, 'yyyy-MM-dd HH24:mi:ss') )
+				]]>
+			</if>
+		),
+		la AS (
+			SELECT
+				temp.ENTERPRISE_ID,
+				COUNT (temp.ENTERPRISE_ID) amount
+			FROM
+				temp
+			GROUP BY
+				temp.ENTERPRISE_ID
+		),
+		l1 as(
+			SELECT
+				temp.ENTERPRISE_ID,
+				COUNT (temp.ENTERPRISE_ID) amount
+			FROM
+				temp
+			WHERE  temp.DANGSRC_LEVEL = 1
+			GROUP BY
+				temp.ENTERPRISE_ID
+		),
+		l2 as(
+			SELECT
+				temp.ENTERPRISE_ID,
+				COUNT (temp.ENTERPRISE_ID) amount
+			FROM
+				temp
+			WHERE  temp.DANGSRC_LEVEL = 2
+			GROUP BY
+				temp.ENTERPRISE_ID
+		),
+		l3 as(
+				SELECT
+					temp.ENTERPRISE_ID,
+					COUNT (temp.ENTERPRISE_ID) amount
+				FROM
+					temp
+				WHERE temp.DANGSRC_LEVEL = 3
+				GROUP BY
+					temp.ENTERPRISE_ID
+		),
+		l4 as(
+			SELECT
+				temp.ENTERPRISE_ID,
+				COUNT (temp.ENTERPRISE_ID) amount
+			FROM
+				temp
+			WHERE temp.DANGSRC_LEVEL = 4
+			GROUP BY
+				temp.ENTERPRISE_ID
+		),
+		result as (
+			SELECT
+				la.*,
+				CASE WHEN l1.AMOUNT IS NULL THEN 0 ELSE l1.AMOUNT END amount1,
+				CASE WHEN l2.AMOUNT IS NULL THEN 0 ELSE l2.AMOUNT END amount2,
+				CASE WHEN l3.AMOUNT IS NULL THEN 0 ELSE l3.AMOUNT END amount3,
+				CASE WHEN l4.AMOUNT IS NULL THEN 0 ELSE l4.AMOUNT END amount4
+			FROM  la
+				LEFT JOIN l1 ON la.ENTERPRISE_ID=l1.ENTERPRISE_ID
+				LEFT JOIN l2 ON la.ENTERPRISE_ID=l2.ENTERPRISE_ID
+				LEFT JOIN l3 ON la.ENTERPRISE_ID=l3.ENTERPRISE_ID
+				LEFT JOIN l4 ON la.ENTERPRISE_ID=l4.ENTERPRISE_ID
+		)
+		SELECT
+			N'合计' ENTERPRISE_NAME,
+			sum(amount)amount,
+			sum(amount1)amount1,
+			sum(amount2)amount2,
+			sum(amount3)amount3,
+			sum(amount4)amount4,
+			100*round(sum(amount1)/sum(amount),3)||'%' proportion1,
+			100*round(sum(amount2)/sum(amount),3)||'%' proportion2,
+			100*round(sum(amount3)/sum(amount),3)||'%' proportion3,
+			100*round(sum(amount4)/sum(amount),3)||'%' proportion4
+		FROM result
+		UNION ALL
+		SELECT
+			tbed.ENTERPRISE_NAME,
+			amount,
+			amount1,
+			amount2,
+			amount3,
+			amount4,
+		100*round(amount1/amount,3)||'%' proportion1,
+		100*round(amount2/amount,3)||'%' proportion2,
+		100*round(amount3/amount,3)||'%' proportion3,
+		100*round(amount4/amount,3)||'%' proportion4
+		FROM result
+		LEFT JOIN T_BAS_ENTERPRISE_DATA tbed ON tbed.id=result.ENTERPRISE_ID
+
+	</select>
+</mapper>

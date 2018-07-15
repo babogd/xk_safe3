@@ -1,0 +1,81 @@
+[
+  {
+    "id": "001",
+    "text": "基础信息",
+    "children": [
+      {
+        "id": "001003",
+        "text": "企业产品信息",
+        "url": "/view/enterprise/enterprise-product/list"
+      }
+    ]
+  },
+  {
+    "id": "002",
+    "text": "安全监管信息",
+    "children": [
+      {
+        "id": "002001",
+        "text": "危险特性",
+        "url": "/view/enterprise/enterprise-danger-nature/list"
+      },
+      {
+        "id": "002002",
+        "text": "重大危险源信息",
+        "url": "/view/enterprise/enterprise-dangsrc/list"
+      },
+      {
+        "id": "002003",
+        "text": "企业化学品信息",
+        "url": "/view/enterprise/enterprise-chemical/list"
+      },
+      {
+        "id": "002004",
+        "text": "生产单元区域",
+        "url": "/view/enterprise/enterprise-prodcell/list"
+      },
+      {
+        "id": "002005",
+        "text": "储罐信息",
+        "pid": "005",
+        "url": "/view/enterprise/enterprise-tank/list"
+      },
+      {
+        "id": "002006",
+        "text": "生产装置信息",
+        "url": "/view/enterprise/enterprise-proddev/list"
+      },
+      {
+        "id": "002007",
+        "text": "重点监管危险化工工艺",
+        "url": "/view/enterprise/enterprise-chemart/list"
+      },
+      {
+        "id": "002008",
+        "text": "危化品仓库信息",
+        "url": "/view/enterprise/enterprise-chmstor/list"
+      },
+      {
+        "id": "002009",
+        "text": "危化品运输管道",
+        "url": "/view/enterprise/enterprise-chemline/list"
+      },
+      {
+        "id": "002010",
+        "text": "职业健康",
+        "children": [
+          {
+            "id": "002010001",
+            "text": "接触职业病危害",
+            "url": "/view/enterprise/enterprise-harm/list"
+          },
+          {
+            "id": "002010002",
+            "text": "职业卫生三同时",
+            "url": "/view/enterprise/enterprise-health/list"
+          }
+        ]
+      }
+    ]
+  }
+]

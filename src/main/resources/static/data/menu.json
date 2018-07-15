@@ -1,0 +1,221 @@
+[
+  {
+    "id": "001",
+    "text": "首页"
+  },
+  {
+    "id": "002",
+    "text": "一企一档"
+  },
+  {
+    "id": "003",
+    "text": "日常管理"
+  },
+  {
+    "id": "003001",
+    "text": "重大危险源",
+    "pid": "003",
+    "url": "/view/enterprise/enterprise-dangsrc/daily-list"
+  },
+  {
+    "id": "003002",
+    "text": "重点监管工艺",
+    "pid": "003",
+    "url": "/view/enterprise/enterprise-chemart/chemart-list"
+  },
+  {
+    "id": "003003",
+    "text": "重点监管危化品",
+    "pid": "003",
+    "url": "/view/enterprise/enterprise-chemical/chemical-list"
+  },
+  {
+    "id": "004",
+    "text": "监测监控"
+  },
+  {
+    "id": "004000",
+    "pid": "004",
+    "text": "数据管理"
+  },
+  {
+    "id": "004000001",
+    "pid": "004000",
+    "text": "历史数据查询",
+    "url": "/view/monitoring/sensodata-real/enterprise-list"
+  },
+  {
+    "id": "004000002",
+    "pid": "004000",
+    "text": "实时数据查询",
+    "url": "/view/monitoring/sensodata-real/enterprise-list"
+  },
+  {
+    "id": "004001",
+    "pid": "004",
+    "text": "设备管理"
+  },
+  {
+    "id": "004001001",
+    "pid": "004001",
+    "text": "企业传感设备",
+    "url": "/view/monitoring/sensor/list"
+  },
+  {
+    "id": "004001002",
+    "pid": "004001",
+    "text": "视频监控设备",
+    "url": "/view/monitoring/video-monitoring/list"
+  },
+  {
+    "id": "004001003",
+    "pid": "004001",
+    "text": "数据采集器配置",
+    "url": "/view/monitoring/integrated-equipment/list"
+  },
+  {
+    "id": "004001004",
+    "pid": "004001",
+    "text": "公共视频设备",
+    "url": "/view/monitoring/public-video-monitoring/list"
+  },
+  {
+    "id": "004005",
+    "pid": "004",
+    "text": "监管地图",
+    "url": "/view/gis/map/monitor-map"
+  },
+  {
+    "id": "005",
+    "text": "统计分析"
+  },
+  {
+    "id": "005001",
+    "pid": "005",
+    "text": "重大危险源统计"
+  },
+  {
+    "id": "005001001",
+    "pid": "005001",
+    "text": "重大危险源统计分析"
+  },
+  {
+    "id": "005001001001",
+    "pid": "005001001",
+    "text": "重大危险源级别占比分析",
+    "url": "/view/statistic/danger-source-level/list"
+  },
+  {
+    "id": "005001001002",
+    "pid": "005001001",
+    "text": "重大危险源监测数据变化趋势分析",
+    "url": "/view/statistic/danger-source-data-change/list"
+  },
+  {
+    "id": "005001002",
+    "pid": "005001",
+    "text": "重大危险源报警统计分析"
+  },
+  {
+    "id": "005001002001",
+    "pid": "005001002",
+    "text": "报警时间统计分析",
+    "url": "/view/statistic/warning-time/list"
+  },  {
+  "id": "005001002002",
+  "pid": "005001002",
+  "text": "报警季度统计分析",
+  "url": "/view/statistic/warning-quarter/list"
+},
+  {
+    "id": "005001002008",
+    "pid": "005001002",
+    "text": "报警设备类型统计",
+    "url": "/view/statistic/warning-equipment/list"
+  },
+  {
+    "id": "005001002009",
+    "pid": "005001002",
+    "text": "报警储罐类型统计",
+    "url": "/view/statistic/warning-tank/list"
+  },
+  {
+    "id": "005001002010",
+    "pid": "005001002",
+    "text": "企业报警分析",
+    "url": "/view/statistic/warning-enterprise/list"
+  },
+  {
+    "id": "005001003",
+    "pid": "005001",
+    "text": "储罐类型统计",
+    "url": "/view/statistic/tank-data-statistics/list"
+  },
+  {
+    "id": "005002",
+    "pid": "005",
+    "text": "重点监管化学品统计"
+  },
+  {
+    "id": "005002001",
+    "pid": "005002",
+    "text": "企业各类重点监管危险化学品年度总量统计",
+    "url": "/view/statistic/chemical-year/list"
+  },
+  {
+    "id": "005002002",
+    "pid": "005002",
+    "text": "企业重点监管危险化学品最大储存量总和统计",
+    "url": "/view/statistic/chemical-total/list"
+  },
+  {
+    "id": "005002003",
+    "pid": "005002",
+    "text": "各类重点监管危险化学品最大储存量统计",
+    "url": "/view/statistic/chemical-sum/list"
+  },
+  {
+    "id": "005003",
+    "pid": "005",
+    "text": "重点监管化工工艺统计"
+  },
+  {
+    "id": "005003001",
+    "pid": "005003",
+    "text": "重点监管危险化工工艺类型统计",
+    "url": "/view/statistic/chemart-data-statistics/list"
+  },
+
+  {
+    "id": "006",
+    "text": "系统管理"
+  },
+  {
+    "id": "006001",
+    "text": "字典管理",
+    "pid": "006",
+    "url": "/view/system/dict/list"
+  },
+  {
+    "id": "007",
+    "text": "示例"
+  },
+  {
+    "id": "007001",
+    "text": "行政区树",
+    "pid": "007",
+    "url": "/view/demo/region-tree"
+  },
+  {
+    "id": "007002",
+    "text": "坐标选取",
+    "pid": "007",
+    "url": "/view/demo/location-map-demo"
+  },
+  {
+    "id": "007003",
+    "text": "选择学品",
+    "pid": "007",
+    "url": "/view/demo/chemical/detail"
+  }
+]

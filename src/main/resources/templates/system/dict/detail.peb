@@ -1,0 +1,38 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+字典管理详情
+{% endblock %}
+
+{% block content %}
+<form id="form_submit" class="form-submit container-fluid">
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="code" name="code"
+                   label="类型编码:" labelPosition="before" required="required">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="text" name="text"
+                   label="名称:" labelPosition="before" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="pid" name="parent[id]"
+                   label="上级名称:" labelPosition="before" readonly="readonly">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-numberspinner" id="sortNum" name="sortNum"
+                   label="排序号:" labelPosition="before" increment="10" value="0" required="required">
+        </div>
+    </div>
+</form>
+<div class="form-button">
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_save">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_close">关闭</a>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/system/dict/detail.js"></script>
+{% endblock %}

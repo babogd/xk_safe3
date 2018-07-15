@@ -1,0 +1,218 @@
+/*左侧start*/
+.layout-panel-west .panel-body {
+    background-color: #0b2355;
+    color: #fff;
+}
+
+.layout-panel-west .tree-node-hover {
+    background: none;
+    color: #00e00e;
+}
+
+.layout-panel-west .tree-node-selected {
+    background: none;
+    color: #00e00e;
+}
+
+.layout-panel-west .tree-node {
+    height: 22px;
+}
+
+.layout-panel-west .tree-expanded {
+    background: url(../assets/images/metro.png) no-repeat -108px -21px !important;
+    width: 18px;
+}
+
+.layout-panel-west .tree-collapsed {
+    background: url(../assets/images/metro.png) no-repeat -129px -21px !important;
+    width: 18px;
+}
+
+.layout-panel-west .tree-join {
+    background: url(../assets/images/metro.png) no-repeat -86px -22px !important;
+}
+
+.layout-panel-west .tree-joinbottom {
+    background: url(../assets/images/metro.png) no-repeat -86px -42px !important;
+}
+
+.layout-panel-west .tree-file {
+    background: url(../assets/images/metro.png) no-repeat -147px -45px !important;
+}
+
+.layout-panel-west .tree-folder {
+    background: url(../assets/images/metro.png) no-repeat -151px 0 !important;
+}
+
+.layout-panel-west .tree-folder-open {
+    background: url(../assets/images/metro.png) no-repeat -151px -21px !important;
+}
+
+.layout-panel-west .tree-line {
+    background: url(../assets/images/line_conn.png) -2px 0 repeat-y;
+}
+
+.layout-panel-west .tree-indent {
+    height: 22px;
+}
+
+.layout-panel-west .tree-title {
+    font-size: 12px;
+    line-height: 20px;
+}
+
+/*左侧end*/
+
+/*列表start*/
+.layout-panel-center .textbox-focused {
+    border-color: #00cc0a;
+    -moz-box-shadow: 0 0 3px 0 #ddd;
+    -webkit-box-shadow: 0 0 3px 0 #ddd;
+    box-shadow: 0 0 3px 0 #ddd;
+}
+
+.layout-panel-center .toolbar-button {
+    height: 40px;
+    border-top: 1px solid #eaecf0;
+    border-bottom: 1px solid #eaecf0;
+}
+
+.layout-panel-center .button-left, .layout-panel-center .button-right {
+    margin-top: 5px;
+}
+
+.layout-panel-center .datagrid-toolbar {
+    background: #fff;
+    border-bottom: 0;
+}
+
+.layout-panel-center .toolbar-button {
+    background: #f6f6f6;
+}
+
+.layout-panel-center .toolbar-button .l-btn {
+    background: #43a2f8;
+    color: #fff;
+    border: 0;
+}
+
+.layout-panel-center .toolbar-button .l-btn:hover {
+    background: #0c8bff;
+}
+
+.layout-panel-center .datagrid-header {
+    background: #fff;
+    border-bottom: 0;
+}
+
+.layout-panel-center .datagrid-header td, .layout-panel-center .datagrid-body td, .layout-panel-center .datagrid-footer td {
+    border-width: 0;
+    padding: 11px;
+}
+
+.layout-panel-center .datagrid-td-rownumber {
+    background: #fff;
+}
+
+.layout-panel-center .datagrid-header td.datagrid-header-over {
+    background: #fff;
+}
+
+.layout-panel-center .datagrid-row-selected, .layout-panel-center .datagrid-row-selected .datagrid-td-rownumber {
+    background: #56f65d;
+    color: #fff;
+}
+
+.layout-panel-center .datagrid-row-over, .layout-panel-center .datagrid-row-over .datagrid-td-rownumber {
+    background: #56f65d;
+    color: #fff;
+}
+
+.layout-panel-center .textbox .textbox-prompt {
+    background: #fafafa;
+}
+
+.layout-panel-center .textbox-focused .validatebox-text {
+    background: #fafafa;
+}
+
+.layout-panel-center .datagrid .datagrid-pager {
+    border: 0;
+    background: #fff;
+}
+
+.layout-panel-center .datagrid-cell {
+    text-align: center !important;
+}
+
+.layout-panel-center .l-btn-focus {
+    outline: none;
+}
+
+/*列表end*/
+
+/*弹出框start*/
+.window {
+    background: #f5f5f5;
+}
+
+/*标题*/
+.window .panel-title {
+    color: #3099f4;
+    background: url(../assets/images/pen.png) no-repeat;
+    padding-left: 24px;
+}
+
+.textbox-focused {
+    border-color: #00cc0a;
+    -moz-box-shadow: 0 0 3px 0 #ddd;
+    -webkit-box-shadow: 0 0 3px 0 #ddd;
+    box-shadow: 0 0 3px 0 #ddd;
+}
+
+.form-submit.container-fluid .textbox .validatebox-text {
+    background: #fafafa;
+}
+
+/*按钮*/
+.form-button .l-btn {
+    background: #43a2f8;
+    color: #fff;
+    border: 0;
+}
+
+.form-button .l-btn:hover {
+    background: #0c8bff;
+}
+
+.form-submit .required .textbox-label:before {
+    content: '*';
+    color: red;
+}
+
+.window .panel-header-noborder {
+    border: 0;
+}
+
+.window .window-body {
+    border-radius: 14px;
+    border-color: #eaecf0;
+}
+
+/*弹出框end*/
+/*地图按钮*/
+.map-location {
+    background: url(../assets/images/location.png) no-repeat;
+    position: absolute;
+    left: 50%;
+    z-index: 2;
+    height: 25px;
+    width: 20px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+/*地图按钮end*/
+.window-mask {
+    background: #eaeaea;
+}

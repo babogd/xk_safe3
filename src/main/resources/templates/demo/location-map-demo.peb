@@ -1,0 +1,34 @@
+{% extends '../../common/layout' %}
+{% block title %}
+坐标选取
+{% endblock %}
+{% block content %}
+<form id="form_submit" class="form-submit container-fluid">
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-numberbox" id="longitude" editable=flase prompt="请点击选取坐标"
+                   name="longitude"label="经度:" labelPosition="before" labelAlign="right" labelWidth="200" required="required"
+                   data-options="icons: [{iconCls:'icon-location', handler:getCoords}],min:73,max:135,precision:6">
+        </div>
+         <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-numberbox" id="latitude" editable=flase
+                   name="latitude"label="纬度:" labelPosition="before" labelAlign="right" labelWidth="200" required="required"
+                   data-options="min:18,max:54,precision:6">
+        </div>
+    </div>
+</form>
+ <div id="dialog"></div>
+{% endblock %}
+{% block footer %}
+<script type="text/javascript">
+var location_map_view = '/view/gis/map/location-map';
+function getCoords(){
+    G.open({
+        url: location_map_view ,
+        width:800,
+        height:600,
+        title: "地图选点"
+    });
+}
+</script>
+{% endblock %}

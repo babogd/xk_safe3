@@ -1,0 +1,49 @@
+{% extends '../../common/layout' %}
+{% block title %}
+行政区树
+{% endblock %}
+{% block content %}
+<table id="dg" class="easyui-datagrid" title="Row Editing in DataGrid" style="width:700px;height:auto"
+       data-options="
+				iconCls: 'icon-edit',
+				singleSelect: true,
+				toolbar: '#tb',
+				method: 'get',
+				onClickRow: onClickRow
+			">
+    <thead>
+    <tr>
+        <th data-options="field:'itemid',width:70">Item ID</th>
+        <th data-options="field:'listprice',width:310,align:'right',
+                editor:{
+                    type:'textbox',
+                    options:{
+                        iconWidth: 22,
+                        icons: [{
+                            iconCls:'icon-add',
+                            handler: function(e){
+                            pageModel.openChemicalList(e);
+                            }}]
+                        }
+                    }">化学品名称
+        </th>
+    </tr>
+    </thead>
+</table>
+
+<div id="tb" style="height:auto">
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true"
+       onclick="append()">Append</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true"
+       onclick="removeit()">Remove</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true"
+       onclick="getChanges()">GetChanges</a>
+</div>
+{#弹出框容器#}
+<div id="dialog" style="overflow:hidden;"></div>
+<div class="form-button">
+</div>
+{% endblock %}
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/demo/chemical/detail.js"></script>
+{% endblock %}

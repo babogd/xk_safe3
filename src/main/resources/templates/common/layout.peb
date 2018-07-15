@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <base href="{{ request.contextPath }}">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="_csrf" content="{{ request.getAttribute('_csrf').token }}"/>
+    <meta name="_csrf_header" content="{{ request.getAttribute('_csrf').headerName }}"/>
+    <title>{% block title %}安全环保应急一体化平台{% endblock %}</title>
+    <link rel="stylesheet" href="{{ request.contextPath }}/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ request.contextPath }}/stylesheet/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ request.contextPath }}/plugins/easyui/themes/material/easyui.css">
+    <link rel="stylesheet" href="{{ request.contextPath }}/plugins/easyui/themes/icon.css">
+    <link rel="stylesheet" href="{{ request.contextPath }}/plugins/easyui/themes/color.css">
+    <link rel="stylesheet" href="{{ request.contextPath }}/plugins/fine-uploader/fine-uploader-new.css">
+    <link rel="stylesheet" href="{{ request.contextPath }}/plugins/radiobox/radiobox.css">
+    <link rel="stylesheet" href="{{ request.contextPath }}/plugins/checkbox/checkbox.css">
+    <link rel="stylesheet" href="{{ request.contextPath }}/stylesheet/theme.css">
+    <link rel="stylesheet" href="{{ request.contextPath }}/stylesheet/common.css">
+    <script src="{{ request.contextPath }}/plugins/jquery-3.3.1.min.js"></script>
+    <script src="{{ request.contextPath }}/plugins/jquery.serializejson.min.js"></script>
+    <script src="{{ request.contextPath }}/plugins/echars/echarts.min.js"></script>
+    <script src="{{ request.contextPath }}/plugins/fine-uploader/jquery.fine-uploader.min.js"></script>
+    <script src="{{ request.contextPath }}/plugins/easyui/jquery.easyui.min.js"></script>
+    <script src="{{ request.contextPath }}/plugins/radiobox/radiobox.js"></script>
+    <script src="{{ request.contextPath }}/plugins/checkbox/checkbox.js"></script>
+    <script src="{{ request.contextPath }}/plugins/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script src="{{ request.contextPath }}/javascript/common.js"></script>
+    <script src="{{ request.contextPath }}/javascript/p.js"></script>
+    <script src="{{ request.contextPath }}/javascript/base.js"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+{% block content %}{% endblock %}
+{% block footer %}{% endblock %}
+</body>
+</html>

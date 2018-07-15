@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.micromap.business.oneplatform.statistic.mapper.WarningTimeMapper">
+
+    <select id="statistic" resultType="java.util.Map">
+        <if test="radioValue =='yer' ">
+            SELECT
+            WARING_TIME_YER YER,
+            CASE
+            WHEN WARING_TIME_MON &lt; 10
+            THEN
+            '0' || WARING_TIME_MON || '月'
+            ELSE
+            WARING_TIME_MON || '月'
+            END DATETYPE,
+            SUM (WARING_NUM) SUM
+            FROM
+            C_MW_WARING_YER
+            WHERE DELETE_STATE =0
+            <![CDATA[
+				AND WARING_TIME_YER =#{year,jdbcType=VARCHAR}
+		  ]]>
+            GROUP BY
+            WARING_TIME_YER,
+            WARING_TIME_MON
+            ORDER BY
+            WARING_TIME_MON
+        </if>
+        <if test="radioValue =='mon' ">
+            SELECT
+            WARING_TIME_YER YER,
+            WARING_TIME_MON MON,
+            CASE
+            WHEN WARING_TIME_DAY &lt; 10
+            THEN
+            '0' || WARING_TIME_DAY || '日'
+            ELSE
+            WARING_TIME_DAY || '日'
+            END DATETYPE,
+            SUM (WARING_NUM) SUM
+            FROM
+            C_MW_WARING_MON
+            WHERE DELETE_STATE =0
+            <![CDATA[
+				AND WARING_TIME_YER =#{year,jdbcType=VARCHAR}
+				AND WARING_TIME_MON =#{month,jdbcType=VARCHAR}
+		  ]]>
+            GROUP BY
+            WARING_TIME_YER,
+            WARING_TIME_MON,
+            WARING_TIME_DAY
+            ORDER BY
+            WARING_TIME_DAY
+        </if>
+        <if test="radioValue =='day' || radioValue == null || radioValue ==''">
+            SELECT
+            WARING_TIME_YER YER,
+            WARING_TIME_MON MON,
+            WARING_TIME_DAY DAY,
+            WARING_TIME_HOURE,
+            CASE
+            WHEN WARING_TIME_HOURE &lt; 10 THEN
+            '0' || WARING_TIME_HOURE || ':00'
+            ELSE
+            WARING_TIME_HOURE || ':00'
+            END DATETYPE,
+            SUM(WARING_NUM) SUM
+            FROM
+            C_MW_WARING_DAY
+            WHERE DELETE_STATE =0
+            <![CDATA[
+				AND WARING_TIME_YER =#{year,jdbcType=VARCHAR}
+				AND WARING_TIME_MON =#{month,jdbcType=VARCHAR}
+				AND WARING_TIME_DAY =#{day,jdbcType=VARCHAR}
+		  ]]>
+            GROUP BY
+            WARING_TIME_YER,
+            WARING_TIME_MON,
+            WARING_TIME_DAY,
+            WARING_TIME_HOURE
+            ORDER BY
+            WARING_TIME_HOURE
+        </if>
+    </select>
+
+    <select id="detailStatistic" resultType="java.util.Map">
+        <if test="radioValue =='yer' ">
+            SELECT
+            ENTERPRISE_ID,
+            ENTERPRISE_NAME,
+            SUM (WARING_NUM) SUM
+            FROM
+            C_MW_WARING_YER
+            WHERE
+            DELETE_STATE = 0
+            <![CDATA[
+				AND WARING_TIME_YER =#{year,jdbcType=VARCHAR}
+				AND WARING_TIME_MON =#{month,jdbcType=VARCHAR}
+		  ]]>
+            GROUP BY
+            ENTERPRISE_ID,
+            ENTERPRISE_NAME
+        </if>
+        <if test="radioValue =='mon' ">
+            SELECT
+            ENTERPRISE_ID,
+            ENTERPRISE_NAME,
+            SUM (WARING_NUM) SUM
+            FROM
+            C_MW_WARING_MON
+            WHERE
+            DELETE_STATE = 0
+            <![CDATA[
+				AND WARING_TIME_YER =#{year,jdbcType=VARCHAR}
+				AND WARING_TIME_MON =#{month,jdbcType=VARCHAR}
+				AND WARING_TIME_DAY =#{day,jdbcType=VARCHAR}
+		  ]]>
+            GROUP BY
+            ENTERPRISE_ID,
+            ENTERPRISE_NAME
+        </if>
+        <if test="radioValue =='day' || radioValue == null || radioValue ==''">
+            SELECT
+            ENTERPRISE_ID,
+            ENTERPRISE_NAME,
+            SUM (WARING_NUM) SUM
+            FROM
+            C_MW_WARING_DAY
+            WHERE
+            DELETE_STATE = 0
+            <![CDATA[
+				AND WARING_TIME_YER =#{year,jdbcType=VARCHAR}
+				AND WARING_TIME_MON =#{month,jdbcType=VARCHAR}
+				AND WARING_TIME_DAY =#{day,jdbcType=VARCHAR}
+				AND WARING_TIME_HOURE =#{hour,jdbcType=VARCHAR}
+		  ]]>
+            GROUP BY
+            ENTERPRISE_ID,
+            ENTERPRISE_NAME
+        </if>
+    </select>
+</mapper>

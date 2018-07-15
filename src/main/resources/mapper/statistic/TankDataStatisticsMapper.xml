@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.micromap.business.oneplatform.statistic.mapper.TankDataStatisticsMapper">
+
+	<select id="tankDataStatisticsStatistic" resultType="java.util.Map">
+			SELECT
+				A . ID jarTypeId,
+				A .TEXT jarType,
+				NVL (B.amount, 0) amount,
+				NVL (B.PROPORTION, '0%') proportion
+			FROM
+				S_DICT A
+			LEFT JOIN (
+				SELECT
+					A .JAR_TYPE jarTypeId,
+					COUNT (A .JAR_TYPE) amount,
+					100 * ROUND (
+						(COUNT(A .JAR_TYPE)) / (
+							SELECT
+								COUNT (JAR_TYPE)
+							FROM
+								C_EI_JAR
+							WHERE
+								DELETE_STATE = 0
+						),
+						3
+					) || '%' proportion
+				FROM
+					C_EI_JAR A
+				WHERE
+					A .DELETE_STATE = 0
+				GROUP BY
+					A .JAR_TYPE
+			) B ON A . ID = B.JARTYPEID
+			WHERE
+				A .CODE LIKE 'jarType_%'
+			AND A .DELETE_STATE = 0
+			ORDER BY amount DESC
+	</select>
+
+    <select id="detailStatistic" resultType="java.util.Map">
+			SELECT
+				A.ENTERPRISE_ID id,
+				B.ENTERPRISE_NAME,
+				A.AMOUNT amount
+			FROM(
+				SELECT
+					ENTERPRISE_ID,
+					COUNT (JAR_TYPE) AMOUNT
+				FROM
+					C_EI_JAR
+				WHERE
+					DELETE_STATE = 0
+				AND JAR_TYPE = (SELECT ID
+				FROM
+					S_DICT
+				WHERE
+					TEXT LIKE #{jartype} )
+				GROUP BY
+					ENTERPRISE_ID
+			)
+				 A
+			LEFT JOIN T_BAS_ENTERPRISE_DATA B ON B . ID = A.ENTERPRISE_ID
+			ORDER BY amount DESC
+	</select>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.micromap.business.oneplatform.statistic.mapper.ChemicalSumMapper">
+    <select id="statistic" resultType="java.util.Map">
+         SELECT CHEMICAL_CNAME,SUM(MAX_STOR_QTY)MAX_STOR_QTY FROM C_EI_CHEMICAL WHERE DELETE_STATE =0
+         GROUP BY CHEMICAL_CNAME  ORDER BY MAX_STOR_QTY DESC
+
+    </select>
+
+    <select id="detailStatistic" resultType="java.util.Map">
+         SELECT (SELECT ENTERPRISE_NAME FROM T_BAS_ENTERPRISE_DATA WHERE ID = ENTERPRISE_ID)
+         ENTERPRISE_NAME,SUM(MAX_STOR_QTY) MAX_STOR_QTY FROM C_EI_CHEMICAL WHERE CHEMICAL_CNAME =
+         <![CDATA[
+			  #{chemicalCname}
+			]]>
+			 AND DELETE_STATE =0
+         GROUP BY ENTERPRISE_ID ORDER BY  MAX_STOR_QTY DESC
+    </select>
+</mapper>

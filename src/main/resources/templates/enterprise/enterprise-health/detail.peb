@@ -1,0 +1,227 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+职业卫生三同时详情
+{% endblock %}
+
+{% block content %}
+<form id="form_submit" class="form-submit container-fluid">
+    <input type="hidden" name="enterpriseId" id="enterpriseId">
+    <div style="background: #dad7d7;margin-top:12px;margin-bottom: 12px;">&emsp;建设项目职业卫生“三同时”信息</div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="buildFirm"
+                   name="buildFirm" readonly
+                   label="建设单位:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="buildFirmAddress" name="buildFirmAddress"
+                   label="建设单位地址:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="projectName" name="projectName"
+                   label="项目名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="projectAddress"
+                   name="projectAddress"
+                   label="项目地址:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="sortName" name="sortName"
+                   label="建设项目职业病危害类别名称:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6 required">
+            <select  title="" style="width: 100%" type="text"  reversed="true" class="easyui-combobox" id="harmSort" name="harmSort"
+                   label="职业病危害级别:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+                <option value=""></option>
+                <option value="1">一般</option>
+                <option value="2">较重</option>
+                <option value="3">严重</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <select title="" style="width: 100%" type="text" reversed="true" class="easyui-combobox" id="projectNature" name="projectNature"
+                   label="项目性质:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+                <option value=""></option>
+                <option value="1">新建</option>
+                <option value="2">扩建</option>
+                <option value="3">改建</option>
+                <option value="4">技术改造</option>
+                <option value="5">技术引进</option>
+            </select>
+        </div>
+        <div class="col-6 required">
+            <select title="" style="width: 100%" type="text" class="easyui-combobox" id="projectStatus" name="projectStatus"
+                   label="项目状态:" labelPosition="before" labelAlign="right"  reversed="true" labelWidth="200" required="required">
+                <option value=""></option>
+                <option value="1">尚未建设</option>
+                <option value="2">建设中</option>
+                <option value="3">建设完成</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" readonly class="easyui-textbox" id="legalRepresentative" name="legalRepresentative"
+                   label="法定代表人:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="projectPrincipal" name="projectPrincipal"
+                   label="项目负责人:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="name" name="name"
+                   label="联系人姓名:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="phone" name="phone"
+                   label="联系电话:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-numberbox" id="investedSum" name="investedSum"
+                   label="总投资概算（万元）:" labelPosition="before" labelAlign="right" labelWidth="200"
+                   precision="2">
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-numberbox" id="investedHealth" name="investedHealth"
+                   label="职业卫生投资（万元）:" labelPosition="before" labelAlign="right" labelWidth="200"
+                   precision="2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-numberbox" id="investedSumReal" name="investedSumReal"
+                   label="实际总投资（万元）:" labelPosition="before" labelAlign="right" labelWidth="200"
+                   precision="2">
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-numberbox" id="investedHealthReal" name="investedHealthReal"
+                   label="职业卫生实际投资（万元）:" labelPosition="before" labelAlign="right" labelWidth="200"
+                   precision="2">
+        </div>
+    </div>
+    <div style="background: #dad7d7;margin-top:12px;margin-bottom: 12px;">&emsp;①职业病危害预评价（一般的职业病危害预评价勾选备案，其他较重、严重勾选审核）</div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="reportPreparationFirm" name="reportPreparationFirm"
+                   label="职业病危害预评价报告编制单位:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <div class="easyui-formbox" id="evaluationMethod" label="预评价方式:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="evaluationMethod" label="审核" value="0" >
+                <input title="" class="easyui-radiobox" name="evaluationMethod" label="备案" value="1" >
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="mechanismName" name="mechanismName"
+                   label="审核（备案）机关名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="reviewTime" name="reviewTime"
+                   label="审核（备案）时间:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="reviewNumber" name="reviewNumber"
+                   label="审核（备案）文号:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div style="background: #dad7d7;margin-top:12px;margin-bottom: 12px;">&emsp;②建设项目职业病防护设施设计审查（严重的职业病危害填写以下内容）</div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="criticalFirmName" name="criticalFirmName"
+                   label="设计单位名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="examineTime" name="examineTime"
+                   label="安监审查时间:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="criticalFirmName" name="criticalFirmName"
+                   label="审查机关名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="examineNumber" name="examineNumber"
+                   label="安监批准文号:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div style="background: #dad7d7;margin-top:12px;margin-bottom: 12px;">&emsp;③建设项目职业病防护设施设计审查（一般、较重的职业病危害填写以下内容）</div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="generalFirmName" name="generalFirmName"
+                   label="设计单位名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="insideExamineTime" name="insideExamineTime"
+                   label="公司内部审查时间:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div style="background: #dad7d7;margin-top:12px;margin-bottom: 12px;">&emsp;④职业病危害防护设施竣工验收（一般的职业病危害防护设施竣工验收勾选备案，其他较重、严重勾选验收）</div>
+    <div class="row">
+        <div class="col-6">
+            <div class="easyui-formbox" id="effectAssess" label="是否进行职业病危害控制效果评价:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="effectAssess" label="是" value="0">
+                <input title="" class="easyui-radiobox" name="effectAssess" label="否" value="1">
+            </div>
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="repotFirm" name="repotFirm"
+                   label="竣工报告编制单位:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="easyui-formbox" id="applicationType" label="竣工申请类别:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="applicationType" label="竣工验收" value="0">
+                <input title="" class="easyui-radiobox" name="applicationType" label="竣工备案" value="1">
+            </div>
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="acceptingFirmName" name="acceptingFirmName"
+                   label="验收或备案机关名称:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-datebox" id="acceptingTime" name="acceptingTime"
+                   label="验收或备案时间:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="acceptingNumber" name="acceptingNumber"
+                   label="验收或备案文号:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="easyui-formbox" label="附件:" labelAlign="right" labelWidth="200">
+                <div class="accessory-container" id="accessory"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="form-button">
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_save">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_close">关闭</a>
+</div>
+{% include '../../common/accessory' %}
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/enterprise/enterprise-health/detail.js"></script>
+{% endblock %}

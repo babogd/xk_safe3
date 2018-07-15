@@ -1,0 +1,44 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+重大危险源级别占比分析
+{% endblock %}
+
+{% block content %}
+<div id="app">
+    <button type="button" class="btn btn-primary" @click="addWorkplace"><i class="fa fa-plus-circle"></i></button>
+    <table class="table table-bordered table-sm" id="table_detail">
+        <thead>
+        <tr>
+            <th scope="col" class="text-center">作业场所名称</th>
+            <th scope="col" class="text-center">职业病危害因素名称</th>
+            <th scope="col" class="text-center">接触人数（可重复）</th>
+            <th scope="col" class="text-center">检测结果现场浓度（强度）</th>
+            <th scope="col" class="text-center">操作</th>
+            <th scope="col" class="text-center">检查日期</th>
+            <th scope="col" class="text-center">接触人数（不重复）</th>
+        </tr>
+        </thead>
+        <tbody v-for="(workplace,w_index) in workplaces">
+        <tr v-for="(factor,f_index) in workplace.factors">
+            <td v-if="f_index === 0" :rowspan="workplace.factors.length" class="align-middle"><input title="作业场所名称" type="text" name="workplaceName" v-model="workplace.workplaceName" class="form-control"></td>
+            <td><input title="职业病危害因素名称" type="text" name="factorName" class="form-control" v-model="factor.factorName"></td>
+            <td><input title="接触人数（可重复）" type="number" name="contactNum1" class="form-control" v-model="factor.contactNum1"></td>
+            <td><input title="检测结果现场浓度（强度）" type="text" name="checkResult" class="form-control" v-model="factor.checkResult"></td>
+            <td class="text-center">
+                <button type="button" class="btn btn-primary" @click="addFactor(w_index)"><i class="fa fa-plus-circle"></i></button>
+                <button type="button" class="btn btn-primary" @click="removeFactor(w_index,f_index)"><i class="fa fa-minus-circle"></i></button>
+            </td>
+            <td v-if="f_index === 0" :rowspan="workplace.factors.length" class="align-middle text-center"><easyui-datebox v-model="workplace.checkDate"></easyui-datebox></td>
+            <td v-if="f_index === 0" :rowspan="workplace.factors.length" class="align-middle"><input title="接触人数（不重复）" type="number" name="contactNum2" v-model="workplace.contactNum2" class="form-control"></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>{{'{{  workplaces | json }}' }}</p>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/plugins/vue.min.js"></script>
+<script src="{{ request.contextPath }}/javascript/demo/complex-editable-table.js"></script>
+{% endblock %}

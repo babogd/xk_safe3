@@ -1,0 +1,88 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+储罐信息详情
+{% endblock %}
+
+{% block content %}
+<form id="form_submit" class="form-submit container-fluid">
+    <input type="hidden" name="enterpriseId" id="enterpriseId">
+    <input type="hidden" id="storMediaId" name="storMediaId" >
+    <input type="hidden" id="storMediaEname" name="storMediaEname" >
+    <input type="hidden" id="dangsrcId" name="dangsrcId" >
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="jarName"
+                   name="jarName"
+                   label="储罐名称:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="dangsrcName" name="dangsrcName"
+                   label="所属重大危险源:" labelPosition="before" labelAlign="right" labelWidth="200" editable="false"
+                   data-options=" icons: [{iconCls:'icon-more', handler: openDangsrcList}]">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6" required>
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="jarNo" name="jarNo"
+                   label="储罐编号:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6" required>
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="storMediaCname"
+                   name="storMediaCname"
+                   label="储存介质:" labelPosition="before" labelAlign="right" labelWidth="200" editable="false" required="required"
+                   data-options=" icons: [{iconCls:'icon-more', handler: openChemicalList}]">
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-combobox" id="jarStatus" name="jarStatus[id]"
+                   label="储罐状态:" labelPosition="before" labelAlign="right" labelWidth="200" required="required" resource="ture">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="spec" name="spec"
+                   label="规格（D*H）:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="designVol" name="designVol"
+                   label="设计容积（m3）:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+           <input title="" style="width: 100%" type="text" class="easyui-combobox" id="jarMode"
+                   name="jarMode[id]"
+                   label="储罐型式:" labelPosition="before" labelAlign="right" labelWidth="200" required="required" resource="ture">
+
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-combobox" id="jarType"
+                   name="jarType[id]"
+                   label="储罐类型:" labelPosition="before" labelAlign="right" labelWidth="200" required="required" resource="ture">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="longitude"
+                   name="longitude"label="经度:" labelPosition="before" labelAlign="right" labelWidth="200" required="required"
+                   data-options="icons: [{iconCls:'icon-location', handler:getCoords}]">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="latitude"
+                   name="latitude"
+                   label="纬度:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+</form>
+<div class="form-button">
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_save">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_close">关闭</a>
+</div>
+<div id="dialog"></div>
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/enterprise/enterprise-tank/detail.js"></script>
+{% endblock %}

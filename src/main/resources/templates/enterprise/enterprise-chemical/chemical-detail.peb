@@ -1,0 +1,107 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+企业化学品详情
+{% endblock %}
+
+{% block content %}
+<form id="form_submit" class="form-submit container-fluid">
+    <input type="hidden" name="enterpriseId" id="enterpriseId">
+    <input type="hidden" name="msdsId" id="msdsId">
+    <input type="hidden" name="chemicalEName" id="chemicalEName">
+    <div class="row" id="dwmc">
+        <div class="col-12">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox"
+                   name="enterpriseId[enterpriseName]"
+                   label="单位名称:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="chemicalCName"
+                   name="chemicalCName"
+                   label="品名:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="casCode" name="casCode"
+                   label="CAS号:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="catalogNo" name="catalogNo"
+                   label="危化品目录序号:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-combobox" id="chemicalUse"
+                   name="chemicalUse[id]"
+                   label="作用:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-numberspinner" id="yearUseQty"
+                   name="yearUseQty"
+                   label="年用量或产量（T）:" labelPosition="before" labelAlign="right" labelWidth="200" required="required"
+                   precision="2">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-numberspinner" id="maxStorQty"
+                   name="maxStorQty"
+                   label="最大储存量（T）:" labelPosition="before" labelAlign="right" labelWidth="200" required="required"
+                   precision="2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="storMode" name="storMode"
+                   label="储存方式/地点:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <div class="easyui-formbox" id="isImportChem" label="是否重点监管化学品:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isImportChem" label="是" value="1" required="required">
+                <input title="" class="easyui-radiobox" name="isImportChem" label="否" value="0" required="required">
+            </div>
+        </div>
+        <div class="col-6 required">
+            <div class="easyui-formbox" id="isToxic" label="是否剧毒化学品:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isToxic" label="是" value="1" required="required">
+                <input title="" class="easyui-radiobox" name="isToxic" label="否" value="0" required="required">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <div class="easyui-formbox" id="isPrecursor" label="是否易制毒品:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isPrecursor" label="是" value="1" required="required">
+                <input title="" class="easyui-radiobox" name="isPrecursor" label="否" value="0" required="required">
+            </div>
+        </div>
+        <div class="col-6 required">
+            <div class="easyui-formbox" id="isBlast" label="是否易制毒品:" labelAlign="right" labelWidth="200">
+                <input title="" class="easyui-radiobox" name="isBlast" label="是" value="1" required="required">
+                <input title="" class="easyui-radiobox" name="isBlast" label="否" value="0" required="required">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="easyui-formbox" label="附件:" labelAlign="right" labelWidth="200">
+                <div class="accessory-container" id="accessory"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="form-button">
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_save">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_close">关闭</a>
+</div>
+<div id="dialog"></div>
+{% include '../../common/accessory' %}
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/enterprise/enterprise-chemical/chemical-detail.js"></script>
+{% endblock %}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.micromap.business.oneplatform.daily.mapper.HiddenDangerMapper">
+    <!-- 字典树 -->
+    <select id="getDictTree" resultType="com.micromap.business.oneplatform.system.dto.TreeJson" parameterType="map">
+    	SELECT T.ID,T.TEXT AS TEXT,T.PID,'' ICONCLS,'' STATE
+          FROM S_DICT T WHERE T.DELETE_STATE = 0
+          START WITH T.CODE = #{dictType}
+       CONNECT BY PRIOR ID = PID
+    </select>
+
+    <!-- 政府部门树 -->
+    <select id="getGovDeptTree" parameterType="map"
+            resultType="com.micromap.business.oneplatform.system.dto.TreeJson">
+          SELECT T.ID,T.DEPT_NAME AS TEXT,T.PARENT_ID PID
+            FROM JDP_OU_DEPT T
+          WHERE T.DELETE_STATE = 0 AND NVL(T.DEPT_CATE,0) != 1
+          <!--<if test="showSelf != null and showSelf != '' and showSelf = '0'">
+              AND T.ID != #{dept.id}
+          </if>-->
+           START WITH T.DEPT_PATH = DECODE(#{dept.deptLevel, jdbcType=INTEGER},1,'1,',REGEXP_SUBSTR(#{dept.deptPath},'^.+?,.+?,'))
+           CONNECT BY PRIOR ID = PARENT_ID
+    </select>
+
+    <!-- 判断是否可以移交 -->
+    <select id="judgeIfCanMove" resultType="int">
+        SELECT COUNT(T.ID) AS CNT
+        FROM C_HD_HIDDENDANGERINFO T
+        LEFT JOIN C_HD_MOVE_INFO M ON T.MOVE_INFO_ID = M.ID
+        WHERE T.ID = #{hd_id} AND (T.MOVE_INFO_ID IS NULL  OR ((M.ACCEPT_RESULT = '3' OR M.ACCEPT_RESULT = '2') AND T.CHECK_DEPT_ID = #{currDeptId}))
+
+    </select>
+
+    <!-- 判断是否可以挂牌，逻辑：只要挂过牌返回0，否则1 -->
+    <select id="judgeIfCanSupervise" resultType="int">
+        SELECT COUNT(T.ID) AS CNT
+          FROM C_HD_HIDDENDANGERINFO T
+         WHERE EXISTS(
+             SELECT 1 FROM C_HD_SUPERVISE_INFO S WHERE S.HD_ID = T.ID
+          ) AND T.ID=#{hd_id}
+    </select>
+    <!--可删除的条件 自己的隐患，未移交到其他部门，自己已受理， -->
+    <select id="checkIfCanDelete" resultType="int">
+        SELECT COUNT(T.ID) FROM C_HD_HIDDENDANGERINFO T
+         WHERE NOT EXISTS( SELECT 1 FROM C_HD_SUPERVISE_INFO S WHERE S.HD_ID = T.ID ) AND
+               (
+                (
+                 ( T.MOVE_INFO_ID IS NULL OR
+                    ( T.CURR_HANDLE_DEPT_ID = #{currDeptId}
+                      AND EXISTS( SELECT 1 FROM C_HD_MOVE_INFO M WHERE M.ID = T.MOVE_INFO_ID AND ( M.ACCEPT_RESULT='3' OR M.ACCEPT_RESULT='2' ) )
+                    )
+                  )
+                  AND (T.HD_SOURCE = '2' AND T.CHECK_DEPT_ID = #{currDeptId})
+                 )
+                OR (T.HD_SOURCE = '1' AND T.ENTERPRISE_ID = #{currDeptId} AND T.HD_ISUP = '1')
+               ) AND T.ID = #{hd_id}
+    </select>
+
+    <select id="checkIfCanNeaten" resultType="int">
+      SELECT COUNT(T.ID) FROM C_HD_HIDDENDANGERINFO T
+       WHERE (
+               (T.MOVE_INFO_ID IS NULL AND T.CHECK_DEPT_ID = #{currDeptId}) OR
+               (T.CURR_HANDLE_DEPT_ID = #{currDeptId} AND EXISTS(SELECT 1 FROM C_HD_MOVE_INFO M WHERE M.ID = T.MOVE_INFO_ID AND (M.ACCEPT_RESULT='3' OR M.ACCEPT_RESULT='2')))
+             ) AND T.ID = #{hd_id}
+    </select>
+
+    <select id="getCurrentSessionId" resultType="long">
+        select t.user_id from tmp_session t
+    </select>
+
+</mapper>

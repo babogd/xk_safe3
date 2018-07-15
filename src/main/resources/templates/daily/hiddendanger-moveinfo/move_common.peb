@@ -1,0 +1,93 @@
+<div style="overflow-x:hidden" id="move_common">
+    <form id="form_submit" class="form-submit container-fluid" style="overflow-x:hidden">
+    <input type="hidden" name="hd_id" value="{{ hiddenDanger.id}}">
+    <div id="form_div" class="form-submit container-fluid" style="width:100%; height:100%; overflow-x:hidden; overflow-y:auto;font-size:10pt">
+        <input type="hidden" name="accept_result" value="1" >
+        <input type="hidden" name="hd_id" value="{{ hiddenDanger.id }}">
+        <input type="hidden" name="enter_dept_id" value="{{ user.dept.id }}">
+        <div style="font-weight:600;font-size:16;overflow-x:hidden;width:100%;margin-top:5px;margin-bottom:4px">隐患移交信息</div>
+        <div style="margin-left:15px;padding-right:18px;">
+            <div class="row  onerow" style="margin-bottom:8px">
+                <div class="col-6 onerow">
+                     <input title="" style="width: 100%" type="text" class="easyui-textbox"  cls="ellipsis" name="hd_location" editable="false" readonly="true"
+                           label="隐患描述:" labelPosition="before" labelWidth="120px" labelAlign="right" value="{{ hiddenDanger.hd_desc }}" >
+                </div>
+                <div class="col-6 ">
+                     <input title="" style="width: 100%" type="text" class="easyui-textbox"  cls="ellipsis" name="hd_location" editable="false" readonly="true"
+                           label="企业名称:" labelPosition="before" labelWidth="120px" labelAlign="right" value="{{ hiddenDanger.dept.deptName }}" >
+                </div>
+            </div>
+
+
+            <div class="row  onerow" style="margin-bottom:8px">
+                 <div class="col-6 required">
+                    <input title="" style="width: 100%" type="text" class="easyui-datebox"  name="move_date" editable="false" value="{{ nowDate | date("yyyy-MM-dd")  }}"
+                           label="移交日期:" labelPosition="before" labelWidth="120px" labelAlign="right" required="required">
+                </div>
+                <div class="col-6">
+                    <input title="" style="width: 100%" type="text" class="easyui-textbox" name="move_psn_name"
+                           label="移交人:" labelPosition="before" labelWidth="120px" labelAlign="right" value="{{ user.userName }}" >
+
+                </div>
+            </div>
+             <div class="row onerow" style="margin-bottom:8px">
+                <div class="col-6 required" >
+                    <input title="" style="width: 100%" type="text" class="easyui-textbox" name="contact"
+                           label="联系方式:" labelPosition="before" labelWidth="120px" labelAlign="right" required="required">
+                </div>
+                <div class="col-6">
+                    <input title="" style="width: 100%" type="text" class="easyui-textbox" name="move_dept" readonly="true"
+                           label="移交部门:" labelPosition="before" labelWidth="120px" labelAlign="right" value="{{ user.dept.deptName }}" >
+                    <input type="hidden" name="move_dept_id" value="{{ user.dept.id }}">
+                </div>
+            </div>
+            <div class="row  onerow" style="margin-bottom:8px">
+               <div class="col-6 required">
+                        <input title="" style="width: 100%" type="text" class="easyui-combobox"  editable="false" id="move_type" name="move_type"
+                               label="移交类型:" labelPosition="before" labelWidth="120px"  labelAlign="right" required="required" data-options="
+                               valueField:'id',textField:'text',
+                               data: [{
+                                        id: '1',
+                                        text: '系统内移交'
+                                    },{
+                                        id: '2',
+                                        text: '系统外移交'
+                                    }]">
+               </div>
+                <div class="col-6 required" id="acceptDeptDiv">
+                    <input style="width: 100%" type="text" class="easyui-combotree" id="acceptDept"
+                           label="受理部门:" labelPosition="before" labelWidth="120px" labelAlign="right"
+                           data-options="{url:'/hd/api/dept/my_gov_tree'}" required="required">
+                    <input type="hidden" name="sys_in_accept_dept_id">
+                    <input type="hidden" name="sys_out_accept_dept_name">
+
+                </div>
+               {# <div class="col-6 required" id="acceptDeptNameDiv" style="display:none">
+                     <input title="" style="width: 100%;" type="text" class="easyui-textbox" id="acceptDeptName"  name="sys_in_accept_dept_name"
+                           label="受理部门:" labelPosition="before" labelWidth="120px" labelAlign="right" required="required">
+                </div>#}
+
+            </div>
+
+
+            <div class="row onerow" style="margin-bottom:8px">
+                <div class="col-12 required">
+                    <input title="" style="width: 100%;height:50px" type="text" class="easyui-textbox" name="move_desc" multiline="true"
+                           label="情况说明:" labelPosition="before" labelWidth="120px" labelAlign="right" >
+                </div>
+
+            </div>
+
+            <div class="row onerow" style="margin-bottom:8px">
+                <div class="col-12">
+                    <label class="textbox-label textbox-label-before" style="text-align: right; width: 120px; height: 30px; line-height: 30px;"
+                        for="_easyui_textbox_input14">附件:</label>
+                    {#<a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">上传</a>#}
+                     <div class="accessory-container" id="accessory"></div>
+                </div>
+            </div>
+
+        <div>
+    </div>
+    </form>
+</div>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.micromap.business.oneplatform.statistic.mapper.ChemicalYearMapper">
+    <select id="statistic" resultType="java.util.Map">
+        WITH a AS(
+        SELECT DISTINCT(ENTERPRISE_ID) FROM  C_EI_CHEMICAL WHERE DELETE_STATE =0
+          <![CDATA[
+				AND TO_CHAR(CREATED_TIME,'YYYY') =#{year}
+		  ]]>
+        ),
+        b AS(
+        SELECT ENTERPRISE_ID,SUM(YEAR_USE_QTY) YL FROM  C_EI_CHEMICAL WHERE DELETE_STATE =0
+        <![CDATA[
+				AND TO_CHAR(CREATED_TIME,'YYYY') =#{year}
+		  ]]>
+         AND CHEMICAL_USE ='806533787828224' GROUP BY ENTERPRISE_ID
+        ),
+        c AS(
+        SELECT ENTERPRISE_ID,SUM(YEAR_USE_QTY) ZJCW FROM  C_EI_CHEMICAL WHERE DELETE_STATE =0
+         <![CDATA[
+				AND TO_CHAR(CREATED_TIME,'YYYY') =#{year}
+		  ]]>
+		  AND CHEMICAL_USE ='806534294945792' GROUP BY ENTERPRISE_ID
+        ),
+        d AS(
+        SELECT ENTERPRISE_ID,SUM(YEAR_USE_QTY) FCP FROM  C_EI_CHEMICAL WHERE DELETE_STATE =0
+         <![CDATA[
+				AND TO_CHAR(CREATED_TIME,'YYYY') =#{year}
+		  ]]>
+		  AND CHEMICAL_USE ='806534726680576' GROUP BY ENTERPRISE_ID
+        ),
+        e AS(
+        SELECT ENTERPRISE_ID,SUM(YEAR_USE_QTY) CP FROM  C_EI_CHEMICAL WHERE DELETE_STATE =0
+         <![CDATA[
+				AND TO_CHAR(CREATED_TIME,'YYYY') =#{year}
+		  ]]>
+		  AND CHEMICAL_USE ='806534509248512' GROUP BY ENTERPRISE_ID
+        )
+        SELECT  (SELECT ENTERPRISE_NAME FROM T_BAS_ENTERPRISE_DATA WHERE ID = a.ENTERPRISE_ID) ENTERPRISE_NAME,
+        NVL(b.YL,0) YL,NVL(c.ZJCW,0) ZJCW,NVL(d.FCP,0) FCP,NVL(e.CP,0) CP from a
+        left join b on b.ENTERPRISE_ID = a.ENTERPRISE_ID
+        left join c on c.ENTERPRISE_ID = a.ENTERPRISE_ID
+        left join d on d.ENTERPRISE_ID = a.ENTERPRISE_ID
+        left join e on e.ENTERPRISE_ID = a.ENTERPRISE_ID
+        order by (YL+ZJCW+FCP+CP) desc
+    </select>
+</mapper>

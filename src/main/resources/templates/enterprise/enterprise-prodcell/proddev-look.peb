@@ -1,0 +1,92 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+查看生产单元相关生产装置
+{% endblock %}
+
+{% block content %}
+<div id="layout1" class="easyui-layout" fit="true" style="width: 100%;height: 100%">
+    <div region="center">
+        <div class="top-search-container" id="toolbar">
+        </div>
+        <div class="center-datagrid-container" style="height: 100%;width: 100%;">
+            <div id="datagrid_list" toolbar="#toolbar">
+            </div>
+        </div>
+    </div>
+    <div id="dialog"></div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script type="application/javascript">
+    /**
+     * @author limeng
+     * @file 生产单元区域列表js
+     */
+    /*global window P Base $*/
+    $(function () {
+        var PageModel = new P(Base, function () {
+            var enterpriseId = G.getParaInt('enterpriseId');
+            var prodcellId = G.getParaInt('prodcellId');
+
+            /**
+             * 初始化数据表格
+             */
+            function initDatagridList() {
+                var me = this;
+                me.datagridList.datagrid({
+                    url: me.apiPage,
+                    singleSelect: false,
+                    rownumbers: true,
+                    pagination: true,
+                    autoRowHeight: true,
+                    fit: true,
+                    remoteSort: true,
+                    idField: 'id',
+                    columns: [
+                        [
+                            {field: 'id', checkbox: true},
+                            {
+                                field: 'proddevName',
+                                title: '生产装置名称',
+                                halign: 'center',
+                                align: 'left',
+                                width: 400,
+                                sortable: true,
+                                formatter: me.detailRenderer.bind(me)
+                            },
+                            {
+                                field: 'importArt',
+                                title: '涉及相关重点监管工艺',
+                                halign: 'center',
+                                align: 'left',
+                                width: 400,
+                                sortable: true
+                            },
+                            {
+                                field: 'platformTiers',
+                                title: '平台最高层数',
+                                halign: 'center',
+                                align: 'left',
+                                width: 400
+                            }
+                        ]]
+                });
+            }
+
+            return {
+                viewList: '/view/enterprise/enterprise-proddev/list',
+                viewDetail: '/view/enterprise/enterprise-proddev/detail?enterpriseId=' + enterpriseId,
+                apiPage: '/api/enterprise/enterprise-proddev/page?prodcellId=' + prodcellId,
+                apiDelete: '/api/enterprise/enterprise-proddev/delete',
+                initDatagridList: initDatagridList
+            };
+        });
+        var pageModel = window.pageModel = new PageModel('生产装置');
+        pageModel.bindEventByIdName();
+        pageModel.initDatagridList();
+    });
+
+</script>
+{% endblock %}

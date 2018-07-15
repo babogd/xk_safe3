@@ -1,0 +1,143 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+企业化学品仓库详情
+{% endblock %}
+
+{% block content %}
+<form id="form_submit" class="form-submit container-fluid">
+    <input type="hidden" id="enterpriseId" name="enterpriseId">
+    {#<input type="hidden" name="medsId" value="1">#}
+    <div class="row">
+        <div class="col-12 required">
+            <input title="" style="width: 100%" type="hidden" class="d-none" id="prodcellId" name="prodcellId">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="prodcellName"
+                   name="prodcellName"
+                   label="生产单元区域名称:" labelPosition="before" labelAlign="right" labelWidth="200" required="required"
+                   data-options="icons: [{iconCls:'icon-more', handler:getProdcell}]">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="chmstorName" name="chmstorName"
+                   label="仓库名称:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-combobox" id="chmstorUse"
+                   name="chmstorUse[id]"
+                   label="用途:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="areaVol"
+                   name="areaVol"
+                   label="面积（㎡）或容积（m3）:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+        <div class="col-6 required">
+            <input title="" style="width: 100%" type="text" class="easyui-combobox" id="matterForm"
+                   name="matterForm[id]"
+                   label="存放物体形态:" labelPosition="before" labelAlign="right" labelWidth="200" required="required">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="storemanName"
+                   name="storemanName"
+                   label="仓库管理员:" labelPosition="before" labelAlign="right" labelWidth="200"
+                   precision="2">
+        </div>
+        <div class="col-6">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="linkMode" name="linkMode"
+                   label="联系方式:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="longitude" name="longitude"
+                   label="经度:" labelPosition="before" labelAlign="right" labelWidth="200"
+                   data-options="icons: [{iconCls:'icon-location', handler:getCoords}]">
+        </div>
+        <div class="col-6 ">
+            <input title="" style="width: 100%" type="text" class="easyui-textbox" id="latitude" name="latitude"
+                   label="纬度:" labelPosition="before" labelAlign="right" labelWidth="200">
+        </div>
+    </div>
+    <table id="dg" class="easyui-datagrid" title="危化品配置" style="width:auto;height:auto"
+           data-options="
+				iconCls: 'icon-edit',
+				singleSelect: true,
+				toolbar: '#tb',
+				method: 'get',
+				onClickRow: onClickRow
+			">
+        <thead>
+        <tr>
+            <th data-options="field:'chemCname',width:230,align:'left',
+                editor:{
+                    type:'textbox',
+                    options:{
+                        iconWidth: 22,
+                        icons: [{
+                            iconCls:'icon-add',
+                            handler: function(e){
+                            pageModel.openChemicalList(e);
+                            }}]
+                        }
+                    }">危化品中文名称
+            </th>
+            <th data-options="field:'olQty',width:230,editor:'textbox'">在线量</th>
+            <th data-options="field:'unit',width:230,
+                        formatter:function(value,row){
+							return row.unitName;
+						},
+						editor:{
+							type:'combobox',
+							options:{
+								valueField:'id',
+								textField:'text',
+								method:'get',
+								url: '/api/system/dict/children?code=measureUnit',
+								showNullItem: true,
+								required:true
+							}
+						}">计量单位
+            </th>
+            <th data-options="field:'dangeArt',width:230,
+						formatter:function(value,row){
+							return row.dangeArtName;
+						},
+						editor:{
+							type:'combobox',
+							options:{
+								valueField:'id',
+								textField:'text',
+								method:'get',
+								url: '/api/system/dict/children?code=chemart',
+								showNullItem: true,
+								required:true
+							}
+						}">涉及危险工艺
+            </th>
+            <th data-options="field:'chemId',hidden:true,editor:'textbox'"></th>
+        </tr>
+        </thead>
+    </table>
+</form>
+<div id="tb" style="height:auto">
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true"
+       onclick="append()">新增</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true"
+       onclick="removeit()">删除</a>
+</div>
+<div class="form-button">
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_alone_Save">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_close">关闭</a>
+</div>
+<div id="dialog"></div>
+
+{% endblock %}
+
+{% block footer %}
+<script src="{{ request.contextPath }}/javascript/enterprise/enterprise-chmstor/detail.js"></script>
+{% endblock %}

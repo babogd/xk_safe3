@@ -1,0 +1,13 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+    隐患排查功能列表入口
+{% endblock %}
+
+{% block content %}
+    隐患排查功能列表入口:
+    <br/>
+    <a href="{{ request.contextPath }}/view/hd/self_inspect">企业自查隐患</a><br/>
+    <a href="{{ request.contextPath }}/view/hd/gov_inspect">监督检查隐患</a>
+
+{% endblock %}

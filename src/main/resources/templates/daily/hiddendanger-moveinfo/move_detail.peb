@@ -1,0 +1,19 @@
+{% extends '../../common/layout' %}
+
+{% block title %}
+登记一般隐患
+{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ request.contextPath }}/stylesheet/daily.css">
+<script>
+    var nowDeptId = '{{ user.dept.id }}';
+</script>
+{% endblock %}
+{% block content %}
+{% include './move_common' %}
+<div id="dialog"></div>
+{% include '../../common/accessory' %}
+<script src="{{ request.contextPath }}/javascript/daily/hiddendanger-moveinfo/move.js"></script>
+
+{% endblock %}
+

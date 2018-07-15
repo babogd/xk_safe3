@@ -1,0 +1,55 @@
+{% extends '../../common/layout' %}
+{% block title %}
+导出
+{% endblock %}
+{% block head %}
+<style>
+    #form1{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<form id="form1" name="form1" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" style="display: none" name="type" value="0"/>
+    <input type="hidden" style="display: none" name="{{ request.getAttribute('_csrf').parameterName }}"
+           value="{{ request.getAttribute('_csrf').token }}"/>
+    <div class="form-button">
+        <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_page">当前页</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" id="btn_all">全部</a>
+    </div>
+</form>
+{% endblock %}
+{% block footer %}
+<script>
+    function setData(data) {
+        var $form = $('#form1').attr('action', data.url);
+        var _data = data.form;
+        for (var key in _data) {
+            if (_data.hasOwnProperty(key)) {
+                var $input = $('<input type="hidden"/>').hide();
+                $input.attr('name', key).val(_data[key]);
+                $form.append($input);
+            }
+        }
+    }
+
+    $('#btn_page').on('click', function() {
+        $('[name=type]').val(0);
+        $('#form1').trigger('submit');
+    });
+    $('#btn_all').on('click', function() {
+        $('[name=type]').val(1);
+        $('#form1').trigger('submit');
+    });
+    $(document).on('setData', function(event, data) {
+        setData(data);
+    });
+</script>
+{% endblock %}
+
+

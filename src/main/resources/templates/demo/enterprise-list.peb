@@ -1,0 +1,103 @@
+{% extends '../../common/layout' %}
+
+{% block content %}
+<div id="cc" class="easyui-layout" fit="true">
+    <div data-options="region:'north',border:false"
+         class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 border-bottom box-shadow"
+         style="height:90px;background: #0a142d;">
+        <h5 class="my-0 mr-md-auto text-white font-weight-normal">安全环保应急一体化平台</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-white" href="#">首页</a>
+            <a class="p-2 text-white" href="#">一企一档</a>
+            <a class="p-2 text-white" href="#">日常管理</a>
+            <a class="p-2 text-white" href="#">监测监控</a>
+            <a class="p-2 text-white" href="#">统计分析</a>
+        </nav>
+
+        <a class="text-white easyui-menubutton" href="javascript:void(0)" menu="#mm">
+            欢迎你，超级管理员
+        </a>
+        <div id="mm" style="width: 150px;">
+            <div>
+                <a href="{{ href('/login?logout') }}">注销</a>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'center',border:false" style="overflow:hidden;">
+        <div class="center-datagrid-container" style="height: 100%;width: 100%;">
+            <div id="datagrid_list" toolbar="#toolbar">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+<script>
+    $('#datagrid_list').datagrid({
+        url: '/api/enterprise/enterprise-info/page',
+        singleSelect: false,
+        rownumbers: true,
+        pagination: true,
+        autoRowHeight: true,
+        fit: true,
+        remoteSort: true,
+        idField: 'id',
+        fitColumns: true,
+        columns: [
+            [
+                {field: 'id', hidden: true},
+                {
+                    field: 'enterpriseName',
+                    title: '企业名称',
+                    halign: 'center',
+                    align: 'left',
+                    width: 200,
+                    sortable: true
+                },
+                {
+                    field: 'organizationCode',
+                    title: '组织机构代码',
+                    halign: 'center',
+                    align: 'left',
+                    width: 200,
+                    sortable: true
+                },
+                {
+                    field: 'industry',
+                    title: '行业类型',
+                    halign: 'center',
+                    align: 'right',
+                    width: 200,
+                    sortable: true
+                },
+                {
+                    field: 'legalPerson',
+                    title: '法人',
+                    halign: 'center',
+                    align: 'right',
+                    sortable: true
+                },
+                {
+                    field: 'tel',
+                    title: '联系方式',
+                    halign: 'center',
+                    align: 'right',
+                    sortable: true
+                },
+                {
+                    field: 'action',
+                    title: '操作',
+                    halign: 'center',
+                    align: 'right',
+                    sortable: true,
+                    formatter: function(value, row) {
+                        if (typeof row.id !== 'undefined') {
+                            return '<a href="{{ request.contextPath }}/view/enterprise/enterprise-chemical/list?enterpriseId=' +
+                                    row.id + '" target="_blank">档案维护</a>';
+                        }
+                    }
+                }
+            ]]
+    });
+</script>
+{% endblock %}
